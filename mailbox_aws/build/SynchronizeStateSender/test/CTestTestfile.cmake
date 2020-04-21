@@ -1,0 +1,13 @@
+# CMake generated Testfile for 
+# Source directory: /home/pi/mailbox/avs-device-sdk/SynchronizeStateSender/test
+# Build directory: /home/pi/mailbox/build/SynchronizeStateSender/test
+# 
+# This file includes the relevant testing commands required for 
+# testing this directory and lists subdirectories to be tested as well.
+add_test(PostConnectSynchronizeStateSenderTest.test_createWithNullContextManager "/home/pi/mailbox/build/SynchronizeStateSender/test/PostConnectSynchronizeStateSenderTest" "--gtest_filter=PostConnectSynchronizeStateSenderTest.test_createWithNullContextManager")
+add_test(PostConnectSynchronizeStateSenderTest.test_getOperationPriority "/home/pi/mailbox/build/SynchronizeStateSender/test/PostConnectSynchronizeStateSenderTest" "--gtest_filter=PostConnectSynchronizeStateSenderTest.test_getOperationPriority")
+add_test(PostConnectSynchronizeStateSenderTest.test_perfromOperationSendsSynchronizeStateEvent "/home/pi/mailbox/build/SynchronizeStateSender/test/PostConnectSynchronizeStateSenderTest" "--gtest_filter=PostConnectSynchronizeStateSenderTest.test_perfromOperationSendsSynchronizeStateEvent")
+add_test(PostConnectSynchronizeStateSenderTest.test_performOperationRetriesOnContextFailure "/home/pi/mailbox/build/SynchronizeStateSender/test/PostConnectSynchronizeStateSenderTest" "--gtest_filter=PostConnectSynchronizeStateSenderTest.test_performOperationRetriesOnContextFailure")
+add_test(PostConnectSynchronizeStateSenderTest.test_testPerfromOperationRetriesOnUnsuccessfulResponse "/home/pi/mailbox/build/SynchronizeStateSender/test/PostConnectSynchronizeStateSenderTest" "--gtest_filter=PostConnectSynchronizeStateSenderTest.test_testPerfromOperationRetriesOnUnsuccessfulResponse")
+add_test(PostConnectSynchronizeStateSenderTest.test_abortOperationWhenContextRequestInProgress "/home/pi/mailbox/build/SynchronizeStateSender/test/PostConnectSynchronizeStateSenderTest" "--gtest_filter=PostConnectSynchronizeStateSenderTest.test_abortOperationWhenContextRequestInProgress")
+add_test(PostConnectSynchronizeStateSenderTest.test_abortOperationWhenSendMessageInProgress "/home/pi/mailbox/build/SynchronizeStateSender/test/PostConnectSynchronizeStateSenderTest" "--gtest_filter=PostConnectSynchronizeStateSenderTest.test_abortOperationWhenSendMessageInProgress")

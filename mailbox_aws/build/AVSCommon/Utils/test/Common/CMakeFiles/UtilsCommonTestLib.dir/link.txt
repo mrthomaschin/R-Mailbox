@@ -1,0 +1,2 @@
+/usr/bin/ar qc libUtilsCommonTestLib.a  CMakeFiles/UtilsCommonTestLib.dir/MockMediaPlayer.cpp.o CMakeFiles/UtilsCommonTestLib.dir/MockHTTP2MimeRequestEncodeSource.cpp.o CMakeFiles/UtilsCommonTestLib.dir/MockHTTP2MimeResponseDecodeSink.cpp.o CMakeFiles/UtilsCommonTestLib.dir/Common.cpp.o CMakeFiles/UtilsCommonTestLib.dir/MimeUtils.cpp.o CMakeFiles/UtilsCommonTestLib.dir/TestableAttachmentManager.cpp.o CMakeFiles/UtilsCommonTestLib.dir/TestableAttachmentWriter.cpp.o CMakeFiles/UtilsCommonTestLib.dir/TestableMessageObserver.cpp.o
+/usr/bin/ranlib libUtilsCommonTestLib.a

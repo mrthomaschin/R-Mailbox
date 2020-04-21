@@ -1,0 +1,36 @@
+# CMake generated Testfile for 
+# Source directory: /home/pi/mailbox/avs-device-sdk
+# Build directory: /home/pi/mailbox/build
+# 
+# This file includes the relevant testing commands required for 
+# testing this directory and lists subdirectories to be tested as well.
+subdirs("ThirdParty/googletest-release-1.8.0")
+subdirs("ThirdParty")
+subdirs("AVSCommon")
+subdirs("Metrics")
+subdirs("ACL")
+subdirs("ADSL")
+subdirs("AFML")
+subdirs("Captions")
+subdirs("AVSGatewayManager")
+subdirs("CertifiedSender")
+subdirs("Endpoints")
+subdirs("Settings")
+subdirs("BluetoothImplementations")
+subdirs("EqualizerImplementations")
+subdirs("ContextManager")
+subdirs("CapabilitiesDelegate")
+subdirs("InterruptModel")
+subdirs("PlaylistParser")
+subdirs("KWD")
+subdirs("CapabilityAgents")
+subdirs("Integration")
+subdirs("SampleApp")
+subdirs("ApplicationUtilities")
+subdirs("MediaPlayer")
+subdirs("RegistrationManager")
+subdirs("SpeechEncoder")
+subdirs("Storage")
+subdirs("SynchronizeStateSender")
+subdirs("doc")
+subdirs("EXTENSION/DoNotDisturb")

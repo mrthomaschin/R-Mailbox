@@ -1,0 +1,2 @@
+/usr/bin/ar qc libCertifiedSenderCommonTestLib.a  CMakeFiles/CertifiedSenderCommonTestLib.dir/MockCertifiedSender.cpp.o
+/usr/bin/ranlib libCertifiedSenderCommonTestLib.a

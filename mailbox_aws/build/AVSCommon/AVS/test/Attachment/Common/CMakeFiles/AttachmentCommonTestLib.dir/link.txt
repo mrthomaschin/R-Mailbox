@@ -1,0 +1,2 @@
+/usr/bin/ar qc libAttachmentCommonTestLib.a  CMakeFiles/AttachmentCommonTestLib.dir/Common.cpp.o
+/usr/bin/ranlib libAttachmentCommonTestLib.a

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libACLTransportCommonTestLib.a  CMakeFiles/ACLTransportCommonTestLib.dir/MockHTTP2Connection.cpp.o CMakeFiles/ACLTransportCommonTestLib.dir/MockHTTP2Request.cpp.o CMakeFiles/ACLTransportCommonTestLib.dir/MockMimeResponseSink.cpp.o
+/usr/bin/ranlib libACLTransportCommonTestLib.a

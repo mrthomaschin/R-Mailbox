@@ -1,0 +1,11 @@
+# CMake generated Testfile for 
+# Source directory: /home/pi/mailbox/avs-device-sdk/capabilities/DoNotDisturb/test
+# Build directory: /home/pi/mailbox/build/EXTENSION/DoNotDisturb/test
+# 
+# This file includes the relevant testing commands required for 
+# testing this directory and lists subdirectories to be tested as well.
+add_test(DoNotDisturbCapabilityAgentTest.test_givenInvalidParameters_create_shouldFail "/home/pi/mailbox/build/EXTENSION/DoNotDisturb/test/DoNotDisturbCapabilityAgentTest" "--gtest_filter=DoNotDisturbCapabilityAgentTest.test_givenInvalidParameters_create_shouldFail")
+add_test(DoNotDisturbCapabilityAgentTest.test_givenValidSetDNDDirective_handleDirective_shouldSucceed "/home/pi/mailbox/build/EXTENSION/DoNotDisturb/test/DoNotDisturbCapabilityAgentTest" "--gtest_filter=DoNotDisturbCapabilityAgentTest.test_givenValidSetDNDDirective_handleDirective_shouldSucceed")
+add_test(DoNotDisturbCapabilityAgentTest.test_beingOnline_applyLocalChange_shouldSendReport "/home/pi/mailbox/build/EXTENSION/DoNotDisturb/test/DoNotDisturbCapabilityAgentTest" "--gtest_filter=DoNotDisturbCapabilityAgentTest.test_beingOnline_applyLocalChange_shouldSendReport")
+add_test(DoNotDisturbCapabilityAgentTest.test_beingOffline_applyLocalChangeAndBecomeOnline_shouldSendChanged "/home/pi/mailbox/build/EXTENSION/DoNotDisturb/test/DoNotDisturbCapabilityAgentTest" "--gtest_filter=DoNotDisturbCapabilityAgentTest.test_beingOffline_applyLocalChangeAndBecomeOnline_shouldSendChanged")
+add_test(DoNotDisturbCapabilityAgentTest.test_whileSendingChangedEvent_sendChangedFail_shouldSendReport "/home/pi/mailbox/build/EXTENSION/DoNotDisturb/test/DoNotDisturbCapabilityAgentTest" "--gtest_filter=DoNotDisturbCapabilityAgentTest.test_whileSendingChangedEvent_sendChangedFail_shouldSendReport")

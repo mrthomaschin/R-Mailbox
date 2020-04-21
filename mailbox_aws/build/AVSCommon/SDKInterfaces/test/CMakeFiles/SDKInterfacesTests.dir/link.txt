@@ -1,0 +1,2 @@
+/usr/bin/ar qc libSDKInterfacesTests.a  CMakeFiles/SDKInterfacesTests.dir/src/EqualizerStorageInterfaceTest.cpp.o CMakeFiles/SDKInterfacesTests.dir/src/StubMiscStorage.cpp.o
+/usr/bin/ranlib libSDKInterfacesTests.a

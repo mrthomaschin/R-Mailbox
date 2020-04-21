@@ -1,0 +1,9 @@
+Name: AlexaClientSDK
+Description: A cross-platform, modular SDK for interacting with the Alexa Voice Service
+Version: 1.19.0
+Requires: libcurl sqlite3 gstreamer-1.0 gstreamer-app-1.0
+prefix=/usr/local
+includedir=${prefix}/include
+libdir=${prefix}/lib
+Libs: -L${libdir} -lAVSCommon -lACL -lADSL -lAFML -lCaptions -lCaptionsLib -lAVSGatewayManager -lCertifiedSender -lEndpoints -lDeviceSettings -lEqualizerImplementations -lContextManager -lCapabilitiesDelegate -lInterruptModel -lPlaylistParser -lKWD -lSENSORY -lKeywordDetectorProvider -lAIP -lAlerts -lAlexa -lApiGateway -lAudioPlayer -lBluetooth -lEqualizer -lExternalMediaPlayer -lInteractionModel -lMRM -lNotifications -lPlaybackController -lSpeakerManager -lSpeechSynthesizer -lAVSSystem -lTemplateRuntime -lCBLAuthDelegate -lLibSampleApp -lDefaultClient -lAudioResources -lSystemSoundPlayer -lMediaPlayer -lRegistrationManager -lSpeechEncoder -lSQLiteStorage -lSynchronizeStateSender -lDoNotDisturbCA
+Cflags: -I${includedir}

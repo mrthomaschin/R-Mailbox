@@ -1,0 +1,2 @@
+/usr/bin/ar qc libCaptionsInterfaceTestLib.a  CMakeFiles/CaptionsInterfaceTestLib.dir/CaptionDataTest.cpp.o CMakeFiles/CaptionsInterfaceTestLib.dir/CaptionFormatAvsTest.cpp.o CMakeFiles/CaptionsInterfaceTestLib.dir/CaptionFormatUtilsTest.cpp.o CMakeFiles/CaptionsInterfaceTestLib.dir/CaptionFrameTest.cpp.o CMakeFiles/CaptionsInterfaceTestLib.dir/CaptionLineTest.cpp.o CMakeFiles/CaptionsInterfaceTestLib.dir/TextStyleTest.cpp.o
+/usr/bin/ranlib libCaptionsInterfaceTestLib.a

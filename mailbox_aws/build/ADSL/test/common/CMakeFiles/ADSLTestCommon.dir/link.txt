@@ -1,0 +1,2 @@
+/usr/bin/ar qc libADSLTestCommon.a  CMakeFiles/ADSLTestCommon.dir/MockDirectiveHandler.cpp.o
+/usr/bin/ranlib libADSLTestCommon.a
