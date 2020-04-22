@@ -6,6 +6,7 @@
 #include <util/delay.h>
 
 #include "ir.h"
+#include "servo.h"
 
 volatile unsigned char TimerFlag = 0; // TimerISR() sets this to 1. C programmer should clear to 0.
 
@@ -86,23 +87,23 @@ void Sensor() //Detects if mailbox contains parcel
 		case sensor_start:
 		state_sensor = input;
 		break;
-		
+
 		case input:
 		state_sensor = input;
 		break;
-		
+
 	}
-	
+
 	switch(state_sensor) //Actions
 	{
 		case sensor_start:
 		break;
-		
+
 		case input:
 		break;
-		
+
 	}
-	
+
 }
 
 void UnlockTop() //Locks & unlocks letter mail door
@@ -114,51 +115,51 @@ void UnlockTop() //Locks & unlocks letter mail door
 		state_unlock1 = unlockTop;
 		else
 		state_unlock1 = isLockedTop;
-		
+
 		break;
-		
+
 		case unlockTop:
 		state_unlock1 = isUnlockedTop;
-		
+
 		break;
-		
+
 		case isUnlockedTop:
 		if(packageIsDetectedTop() /*and TODO: door is shut*/) //If package is detected and door is shut
 		state_unlock1 = lockTop;
 		else
 		state_unlock1 = isUnlockedTop;
-		
+
 		break;
-		
+
 		case lockTop:
 		state_unlock1 = isLockedTop;
-		
+
 		break;
-		
+
 		default:
 		break;
 	}
-	
+
 	switch(state_unlock1) //Actions
 	{
 		case isLockedTop:
 		break;
-		
+
 		case unlockTop:
 		servoUnlockTop(); //Run servoUnlock function in servo.c
-		
+
 		break;
-		
+
 		case isUnlockedTop:
 		break;
-		
+
 		case lockTop:
 		servoLockTop(); //Run servoLock function in servo.c
-		
+
 		break;
-		
+
 	}
-	
+
 }
 
 void UnlockBottom() //Locks & unlocks parcel door
@@ -170,51 +171,51 @@ void UnlockBottom() //Locks & unlocks parcel door
 		state_unlock2 = unlockBottom;
 		else
 		state_unlock2 = isLockedBottom;
-		
+
 		break;
-		
+
 		case unlockBottom:
 		state_unlock2 = isUnlockedBottom;
-		
+
 		break;
-		
+
 		case isUnlockedBottom:
 		if(packageIsDetectedBottom() /*and TODO: door is shut*/) //If package is detected and door is shut
 		state_unlock2 = lockBottom;
 		else
 		state_unlock2 = isUnlockedBottom;
-		
+
 		break;
-		
+
 		case lockBottom:
 		state_unlock2 = isLockedBottom;
-		
+
 		break;
-		
+
 		default:
 		break;
 	}
-	
+
 	switch(state_unlock2) //Actions
 	{
 		case isLockedBottom:
 		break;
-		
+
 		case unlockBottom:
 		servoUnlockBottom(); //Run servoUnlock function in servo.c
-		
+
 		break;
-		
+
 		case isUnlockedBottom:
 		break;
-		
+
 		case lockBottom:
 		servoLockBottom(); //Run servoLock function in servo.c
-		
+
 		break;
-		
+
 	}
-	
+
 }
 
 /*****************************/
@@ -228,21 +229,21 @@ int main(void)
 	DDRB = 0x00; PORTB = 0xFF;
 	DDRC = 0xFF; PORTC = 0x00;
 	DDRD = 0XFF; PORTD = 0X00; //Servo motor input / output
-	
+
 	DDRD |= (1 << PD5);				// PWM OC1A pins as output
 	TCNT1 = 0;						// Set timer1 count zero
 	ICR1 = 2499;
-	
+
 	TCCR1A = (1<<WGM11)|(1<<COM1A1); //Non-inverted PWM
 	TCCR1B = (1<<WGM12)|(1<<WGM13)|(1<<CS10)|(1<<CS11); //Fast PWM
-	
+
 	TimerSet(70);
 	TimerOn();
-	
+
 	state_unlock1 = isUnlockedTop; //Initial mailbox door unlocked, no packages inside
 	state_unlock2 = isUnlockedBottom; //Initial mailbox door unlocked, no packages inside
 	state_sensor = sensor_start;
-	
+
 	while (1)
 	{
 		while(!TimerFlag);
