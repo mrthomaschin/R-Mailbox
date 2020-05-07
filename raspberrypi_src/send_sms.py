@@ -1,9 +1,9 @@
 # Script to send out SMS message to a users phone. This utilizes the SMS API provided by Twilio.
 from twilio.rest import Client
+from settings import *
 
-# TODO: Add credentials as environment variables to make secure http://twil.io/secure
-account_sid = 'ACe80440f4e27ad45caf3d06326a09963a'
-auth_token = 'df786a80c0ec0091ab96d292c1e01e23'
+account_sid = TWILIO_SID
+auth_token = TWILIO_AUTH
 
 client = Client(account_sid, auth_token)
 
