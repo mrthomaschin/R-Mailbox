@@ -1,4 +1,4 @@
-#ifndef ir.h
-#define ir.h
+#ifndef IR_H
+#define IR_H
 
 #endif
