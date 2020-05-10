@@ -1,251 +1,197 @@
-#define F_CPU 8000000UL		/* Define CPU Frequency e.g. here its 8MHz */
+#define F_CPU 8000000UL
 
 #include <avr/io.h>
-#include <avr/interrupt.h>
-#include <stdio.h>
-#include <util/delay.h>
-
+#include "timer.h"
+#include "scheduler.h"
+#include "servo.h"
 #include "ir.h"
 
-volatile unsigned char TimerFlag = 0; // TimerISR() sets this to 1. C programmer should clear to 0.
+//Button on PA0 mocks authorization signal to unlock
+#define AUTHORIZED ~PINA & 0x01
 
-// Internal variables for mapping AVR's ISR to our cleaner TimerISR model.
-unsigned long _avr_timer_M = 1; // Start count from here, down to 0. Default 1ms
-unsigned long _avr_timer_cntcurr = 0; // Current internal count of 1ms ticks
+unsigned char isPackage = 0;
+unsigned char doorClosed = 0;
 
-
-enum States_UnlockTop {isLockedTop, unlockTop, isUnlockedTop, lockTop} state_unlock1;
-enum States_UnlockBottom {isLockedBottom, unlockBottom, isUnlockedBottom, lockBottom} state_unlock2;
-enum States_Sensor{sensor_start, input} state_sensor;
-
-
-/*****************************/
-/**********TIMER ISR**********/
-/*****************************/
-
-// Set TimerISR() to tick every M ms
-void TimerSet(unsigned long M) {
-	_avr_timer_M = M;
-	_avr_timer_cntcurr = _avr_timer_M;
-}
-
-void TimerOn() {
-	// AVR timer/counter controller register TCCR1
-	TCCR1B 	= 0x0B;	// bit3 = 1: CTC mode (clear timer on compare)
-	// bit2bit1bit0=011: prescaler /64
-	// 00001011: 0x0B
-	// SO, 8 MHz clock or 8,000,000 /64 = 125,000 ticks/s
-	// Thus, TCNT1 register will count at 125,000 ticks/s
-
-	// AVR output compare register OCR1A.
-	OCR1A 	= 125;	// Timer interrupt will be generated when TCNT1==OCR1A
-	// We want a 1 ms tick. 0.001 s * 125,000 ticks/s = 125
-	// So when TCNT1 register equals 125,
-	// 1 ms has passed. Thus, we compare to 125.
-	// AVR timer interrupt mask register
-
-	TIMSK1 	= 0x02; // bit1: OCIE1A -- enables compare match interrupt
-
-	//Initialize avr counter
-	TCNT1 = 0;
-
-	// TimerISR will be called every _avr_timer_cntcurr milliseconds
-	_avr_timer_cntcurr = _avr_timer_M;
-
-	//Enable global interrupts
-	SREG |= 0x80;	// 0x80: 1000000
-}
-
-void TimerOff() {
-	TCCR1B 	= 0x00; // bit3bit2bit1bit0=0000: timer off
-}
-
-void TimerISR() {
-	TimerFlag = 1;
-}
-
-// In our approach, the C programmer does not touch this ISR, but rather TimerISR()
-ISR(TIMER1_COMPA_vect)
+enum packageIR_States { Detect_Package };
+int packageIR_Tick(int packageIR_state)
 {
-	// CPU automatically calls when TCNT0 == OCR0 (every 1 ms per TimerOn settings)
-	_avr_timer_cntcurr--; 			// Count down to 0 rather than up to TOP
-	if (_avr_timer_cntcurr == 0) { 	// results in a more efficient compare
-		TimerISR(); 				// Call the ISR that the user uses
-		_avr_timer_cntcurr = _avr_timer_M;
-	}
-}
-
-/*****************************/
-/********STATE MACHINE********/
-/*****************************/
-
-void Sensor() //Detects if mailbox contains parcel
-{
-	switch(state_sensor) //Transitions
+	//State Transitions
+	switch(packageIR_state)
 	{
-		case sensor_start:
-		state_sensor = input;
-		break;
+		case Detect_Package:
+			packageIR_state = Detect_Package;
+			break;
 		
-		case input:
-		state_sensor = input;
-		break;
-		
+		default:
+			packageIR_state = Detect_Package;
+			break;
 	}
 	
-	switch(state_sensor) //Actions
+	//State Actions
+	switch(packageIR_state)
 	{
-		case sensor_start:
-		break;
+		case Detect_Package:
+			isPackage = detectPackage();
+			break;
 		
-		case input:
-		break;
-		
+		default:
+			break;
 	}
-	
+		
+	return packageIR_state;
 }
 
-void UnlockTop() //Locks & unlocks letter mail door
+enum doorIR_States { Detect_Door };
+int doorIR_Tick(int doorIR_state)
 {
-	switch(state_unlock1) //Transitions
+	//State Transitions
+	switch(doorIR_state)
 	{
-		case isLockedTop:
-		if(1) //If authenticated
-		state_unlock1 = unlockTop;
-		else
-		state_unlock1 = isLockedTop;
+		case Detect_Door:
+			doorIR_state = Detect_Door;
+			break;
 		
+		default:
+			doorIR_state = Detect_Door;
+			break;
+	}
+	
+	//State Actions
+	switch(doorIR_state)
+	{
+		case Detect_Door:
+			doorClosed = detectDoor();
+			break;
+		
+		default:
+			break;
+	}
+	
+	return doorIR_state;
+}
+
+enum lock_States { Unlocked, Lock, Locked, Unlock };
+int lock_Tick(int lock_state)
+{
+	//State Transitions
+	switch(lock_state)
+	{
+		case Unlocked:
+		if(isPackage && doorClosed)
+		{
+			lock_state = Lock;
+		}
 		break;
 		
-		case unlockTop:
-		state_unlock1 = isUnlockedTop;
-		
+		case Lock:
+		lock_state = Locked;
 		break;
 		
-		case isUnlockedTop:
-		if(packageIsDetectedTop() /*and TODO: door is shut*/) //If package is detected and door is shut
-		state_unlock1 = lockTop;
-		else
-		state_unlock1 = isUnlockedTop;
-		
+		case Locked:
+		if (AUTHORIZED)
+		{
+			lock_state = Unlock;
+		}
 		break;
 		
-		case lockTop:
-		state_unlock1 = isLockedTop;
+		case Unlock:
+		lock_state = Unlocked;
+		break;
 		
+		default:
+		lock_state = Lock;
+		break;
+	}
+	
+	//State Actions
+	switch(lock_state)
+	{
+		case Unlocked:
+		//Debug
+		PORTC = 0x00;
+		break;
+		
+		case Lock:
+		lockDoor();
+		break;
+		
+		case Locked:
+		//Debug
+		PORTC = 0x01;
+		break;
+		
+		case Unlock:
+		unlockDoor();
 		break;
 		
 		default:
 		break;
 	}
 	
-	switch(state_unlock1) //Actions
-	{
-		case isLockedTop:
-		break;
-		
-		case unlockTop:
-		servoUnlockTop(); //Run servoUnlock function in servo.c
-		
-		break;
-		
-		case isUnlockedTop:
-		break;
-		
-		case lockTop:
-		servoLockTop(); //Run servoLock function in servo.c
-		
-		break;
-		
-	}
-	
+	return lock_state;
 }
-
-void UnlockBottom() //Locks & unlocks parcel door
-{
-	switch(state_unlock2) //Transitions
-	{
-		case isLockedBottom:
-		if(1) //If authenticated
-		state_unlock2 = unlockBottom;
-		else
-		state_unlock2 = isLockedBottom;
-		
-		break;
-		
-		case unlockBottom:
-		state_unlock2 = isUnlockedBottom;
-		
-		break;
-		
-		case isUnlockedBottom:
-		if(packageIsDetectedBottom() /*and TODO: door is shut*/) //If package is detected and door is shut
-		state_unlock2 = lockBottom;
-		else
-		state_unlock2 = isUnlockedBottom;
-		
-		break;
-		
-		case lockBottom:
-		state_unlock2 = isLockedBottom;
-		
-		break;
-		
-		default:
-		break;
-	}
-	
-	switch(state_unlock2) //Actions
-	{
-		case isLockedBottom:
-		break;
-		
-		case unlockBottom:
-		servoUnlockBottom(); //Run servoUnlock function in servo.c
-		
-		break;
-		
-		case isUnlockedBottom:
-		break;
-		
-		case lockBottom:
-		servoLockBottom(); //Run servoLock function in servo.c
-		
-		break;
-		
-	}
-	
-}
-
-/*****************************/
-/************MAIN*************/
-/*****************************/
-
 
 int main(void)
 {
-	DDRA = 0x00; PORTA = 0xFF; //IR Sensor input A0 - A7
-	DDRB = 0x00; PORTB = 0xFF;
+	//PA0 - "Authorize" Mock button, PA1-3 Package IR sensors, PA4 Door IR Sensor
+	DDRA = 0x00; PORTA = 0xFF;	
+	//PB3 - Servo Wire
+	DDRB = 0xFF; PORTB = 0x00;	
+	//Debug light on PC0
 	DDRC = 0xFF; PORTC = 0x00;
-	DDRD = 0XFF; PORTD = 0X00; //Servo motor input / output
-	
-	DDRD |= (1 << PD5);				// PWM OC1A pins as output
-	TCNT1 = 0;						// Set timer1 count zero
-	ICR1 = 2499;
-	
-	TCCR1A = (1<<WGM11)|(1<<COM1A1); //Non-inverted PWM
-	TCCR1B = (1<<WGM12)|(1<<WGM13)|(1<<CS10)|(1<<CS11); //Fast PWM
-	
-	TimerSet(70);
+		
+	TimerSet(1);
 	TimerOn();
+	PWM_on();
 	
-	state_unlock1 = isUnlockedTop; //Initial mailbox door unlocked, no packages inside
-	state_unlock2 = isUnlockedBottom; //Initial mailbox door unlocked, no packages inside
-	state_sensor = sensor_start;
+	// Periods for the tasks
+	unsigned long packageIR_Tick_Period = 500;
+	unsigned long doorIR_Tick_Period = 500;
+	unsigned long lock_Tick_Period = 500;
 	
-	while (1)
+	static task task1, task2, task3;
+	task *tasks[] = { &task1, &task2, &task3};
+	const unsigned short numTasks = sizeof(tasks)/sizeof(task*);
+	
+	// Task 1
+	task1.state = Detect_Package;
+	task1.period = packageIR_Tick_Period;
+	task1.elapsedTime = packageIR_Tick_Period;
+	task1.TickFct = &packageIR_Tick;
+	
+	// Task 2
+	task2.state = Detect_Door;
+	task2.period = doorIR_Tick_Period;
+	task2.elapsedTime = doorIR_Tick_Period;
+	task2.TickFct = &doorIR_Tick;
+	
+	// Task 3
+	task3.state = Unlocked;
+	task3.period = lock_Tick_Period;
+	task3.elapsedTime = lock_Tick_Period;
+	task3.TickFct = &lock_Tick;
+	
+	unsigned short i; // Scheduler for-loop iterator
+	while(1)
 	{
+		// Scheduler code
+		for ( i = 0; i < numTasks; i++ )
+		{
+			// Task is ready to tick
+			if ( tasks[i]->elapsedTime == tasks[i]->period )
+			{
+				// Setting next state for task
+				tasks[i]->state = tasks[i]->TickFct(tasks[i]->state);
+				// Reset the elapsed time for next tick.
+				tasks[i]->elapsedTime = 0;
+			}
+			
+			tasks[i]->elapsedTime += 1;
+		}
 		while(!TimerFlag);
 		TimerFlag = 0;
 	}
+
+	return 0;
 }
+
