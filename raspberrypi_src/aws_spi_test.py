@@ -7,9 +7,6 @@ import time
 app = Flask(__name__)
 ask = Ask(app, '/')
 
-# global variable, for aws
-detected = 0
-
 
 def createSPI(bus, device):
     spi = spidev.SpiDev()
@@ -23,15 +20,24 @@ def createSPI(bus, device):
 @ask.intent('IRIntent')
 def isMail():
     print('Getting IR sensor value')
-    if(detected == 0):
-        return statement('There is currently no mail')
+    atmegaSPI = createSPI(0, 0)
 
-    return statement('You have mail')
+    Send_Status = 0x10
+
+    atmegaSPI.xfer([Send_Status])
+    sensorValue = atmegaSPI.readbytes(1)[0]
+
+    print(f'Current Sensor Status: {sensorValue}')
+
+    atmegaSPI.close()
+
+    if sensorValue == 1:
+        return statement('You have mail')
+
+    return statement('There is currently no mail')
 
 
 if __name__ == '__main__':
-
-    atmegaSPI = createSPI(0, 0)
 
     # GPIO, for debugging purposes
     # Pin 21 is the bottom right pin, to the left of it is GND for easy hookup
@@ -39,28 +45,9 @@ if __name__ == '__main__':
     # GPIO.setup(21, GPIO.OUT)
 
     try:
-        # I dont know where to put this
         app.run(debug=True)
-
-        while True:
-            Send_Status = 0x10
-
-            atmegaSPI.xfer([Send_Status])
-            sensorValue = atmegaSPI.readbytes(1)[0]
-
-            print(f'Current Sensor Status: {sensorValue}')
-
-            if sensorValue == 0:
-                detected = 0
-            elif sensorValue == 1:
-                detected = 1
-            else:
-                print("LED not 1 or 0")
-
-            time.sleep(1)
 
     except KeyboardInterrupt:
         exit()
-    finally:
-        atmegaSPI.close()
-        # GPIO.cleanup()
+    # finally:
+    #     # GPIO.cleanup()
