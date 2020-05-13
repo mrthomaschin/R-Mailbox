@@ -1,2 +1,0 @@
-/usr/bin/ar qc libCaptionsTestLib.a  CMakeFiles/CaptionsTestLib.dir/CaptionManagerTest.cpp.o CMakeFiles/CaptionsTestLib.dir/CaptionTimingAdapterTest.cpp.o CMakeFiles/CaptionsTestLib.dir/TestTimingAdapterFactory.cpp.o
-/usr/bin/ranlib libCaptionsTestLib.a

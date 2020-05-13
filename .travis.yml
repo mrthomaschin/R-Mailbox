@@ -11,3 +11,7 @@ install:
   #run tests
 script:
   - pytest
+
+branches:
+  only:
+    - master
