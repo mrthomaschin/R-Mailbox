@@ -5,6 +5,7 @@
 #include "scheduler.h"
 #include "servo.h"
 #include "ir.h"
+#include "servo.h"
 
 //Button on PA0 mocks authorization signal to unlock
 #define AUTHORIZED ~PINA & 0x01
@@ -12,186 +13,201 @@
 unsigned char isPackage = 0;
 unsigned char doorClosed = 0;
 
-enum packageIR_States { Detect_Package };
+enum packageIR_States
+{
+	Detect_Package
+};
 int packageIR_Tick(int packageIR_state)
 {
 	//State Transitions
-	switch(packageIR_state)
+	switch (packageIR_state)
 	{
-		case Detect_Package:
-			packageIR_state = Detect_Package;
-			break;
-		
-		default:
-			packageIR_state = Detect_Package;
-			break;
+	case Detect_Package:
+		packageIR_state = Detect_Package;
+		break;
+
+	default:
+		packageIR_state = Detect_Package;
+		break;
 	}
-	
+
 	//State Actions
-	switch(packageIR_state)
+	switch (packageIR_state)
 	{
-		case Detect_Package:
-			isPackage = detectPackage();
-			break;
-		
-		default:
-			break;
+	case Detect_Package:
+		isPackage = detectPackage();
+		break;
+
+	default:
+		break;
 	}
-		
+
 	return packageIR_state;
 }
 
-enum doorIR_States { Detect_Door };
+enum doorIR_States
+{
+	Detect_Door
+};
 int doorIR_Tick(int doorIR_state)
 {
 	//State Transitions
-	switch(doorIR_state)
+	switch (doorIR_state)
 	{
-		case Detect_Door:
-			doorIR_state = Detect_Door;
-			break;
-		
-		default:
-			doorIR_state = Detect_Door;
-			break;
+	case Detect_Door:
+		doorIR_state = Detect_Door;
+		break;
+
+	default:
+		doorIR_state = Detect_Door;
+		break;
 	}
-	
+
 	//State Actions
-	switch(doorIR_state)
+	switch (doorIR_state)
 	{
-		case Detect_Door:
-			doorClosed = detectDoor();
-			break;
-		
-		default:
-			break;
+	case Detect_Door:
+		doorClosed = detectDoor();
+		break;
+
+	default:
+		break;
 	}
-	
+
 	return doorIR_state;
 }
 
-enum lock_States { Unlocked, Lock, Locked, Unlock };
+enum lock_States
+{
+	Unlocked,
+	Lock,
+	Locked,
+	Unlock
+};
 int lock_Tick(int lock_state)
 {
 	//State Transitions
-	switch(lock_state)
+	switch (lock_state)
 	{
-		case Unlocked:
-		if(isPackage && doorClosed)
+	case Unlocked:
+		if (isPackage && doorClosed)
 		{
 			lock_state = Lock;
 		}
 		break;
-		
-		case Lock:
+
+	case Lock:
 		lock_state = Locked;
 		break;
-		
-		case Locked:
+
+	case Locked:
 		if (AUTHORIZED)
 		{
 			lock_state = Unlock;
 		}
 		break;
-		
-		case Unlock:
+
+	case Unlock:
 		lock_state = Unlocked;
 		break;
-		
-		default:
+
+	default:
 		lock_state = Lock;
 		break;
 	}
-	
+
 	//State Actions
-	switch(lock_state)
+	switch (lock_state)
 	{
-		case Unlocked:
+	case Unlocked:
 		//Debug
 		PORTC = 0x00;
 		break;
-		
-		case Lock:
+
+	case Lock:
 		lockDoor();
 		break;
-		
-		case Locked:
+
+	case Locked:
 		//Debug
 		PORTC = 0x01;
 		break;
-		
-		case Unlock:
+
+	case Unlock:
 		unlockDoor();
 		break;
-		
-		default:
+
+	default:
 		break;
 	}
-	
+
 	return lock_state;
 }
 
 int main(void)
 {
 	//PA0 - "Authorize" Mock button, PA1-3 Package IR sensors, PA4 Door IR Sensor
-	DDRA = 0x00; PORTA = 0xFF;	
+	DDRA = 0x00;
+	PORTA = 0xFF;
 	//PB3 - Servo Wire
-	DDRB = 0xFF; PORTB = 0x00;	
+	DDRB = 0xFF;
+	PORTB = 0x00;
 	//Debug light on PC0
-	DDRC = 0xFF; PORTC = 0x00;
-		
+	DDRC = 0xFF;
+	PORTC = 0x00;
+
 	TimerSet(1);
 	TimerOn();
 	PWM_on();
-	
+
 	// Periods for the tasks
 	unsigned long packageIR_Tick_Period = 500;
 	unsigned long doorIR_Tick_Period = 500;
 	unsigned long lock_Tick_Period = 500;
-	
+
 	static task task1, task2, task3;
-	task *tasks[] = { &task1, &task2, &task3};
-	const unsigned short numTasks = sizeof(tasks)/sizeof(task*);
-	
+	task *tasks[] = {&task1, &task2, &task3};
+	const unsigned short numTasks = sizeof(tasks) / sizeof(task *);
+
 	// Task 1
 	task1.state = Detect_Package;
 	task1.period = packageIR_Tick_Period;
 	task1.elapsedTime = packageIR_Tick_Period;
 	task1.TickFct = &packageIR_Tick;
-	
+
 	// Task 2
 	task2.state = Detect_Door;
 	task2.period = doorIR_Tick_Period;
 	task2.elapsedTime = doorIR_Tick_Period;
 	task2.TickFct = &doorIR_Tick;
-	
+
 	// Task 3
 	task3.state = Unlocked;
 	task3.period = lock_Tick_Period;
 	task3.elapsedTime = lock_Tick_Period;
 	task3.TickFct = &lock_Tick;
-	
+
 	unsigned short i; // Scheduler for-loop iterator
-	while(1)
+	while (1)
 	{
 		// Scheduler code
-		for ( i = 0; i < numTasks; i++ )
+		for (i = 0; i < numTasks; i++)
 		{
 			// Task is ready to tick
-			if ( tasks[i]->elapsedTime == tasks[i]->period )
+			if (tasks[i]->elapsedTime == tasks[i]->period)
 			{
 				// Setting next state for task
 				tasks[i]->state = tasks[i]->TickFct(tasks[i]->state);
 				// Reset the elapsed time for next tick.
 				tasks[i]->elapsedTime = 0;
 			}
-			
+
 			tasks[i]->elapsedTime += 1;
 		}
-		while(!TimerFlag);
+		while (!TimerFlag)
+			;
 		TimerFlag = 0;
 	}
 
 	return 0;
 }
-
