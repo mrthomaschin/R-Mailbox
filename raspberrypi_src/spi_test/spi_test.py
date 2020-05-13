@@ -34,6 +34,7 @@ if __name__ == '__main__':
 				GPIO.output(21, GPIO.HIGH)
 			else:
 				print("LED not 1 or 0")
+				GPIO.output(21, GPIO.LOW)
 
 			time.sleep(1)
 

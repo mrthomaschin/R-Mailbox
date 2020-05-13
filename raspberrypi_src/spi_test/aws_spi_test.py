@@ -19,15 +19,15 @@ def createSPI(bus, device):
 
 @ask.intent('IRIntent')
 def isMail():
-    print('Getting IR sensor value')
     atmegaSPI = createSPI(0, 0)
+    print('Getting IR sensor value')
 
     Send_Status = 0x10
 
     atmegaSPI.xfer([Send_Status])
     sensorValue = atmegaSPI.readbytes(1)[0]
 
-    print(f'Current Sensor Status: {sensorValue}')
+    print ("Current Sensor Status: ", sensorValue)
 
     atmegaSPI.close()
 
@@ -45,6 +45,7 @@ if __name__ == '__main__':
     # GPIO.setup(21, GPIO.OUT)
 
     try:
+        #atmegaSPI = createSPI(0, 0)
         app.run(debug=True)
 
     except KeyboardInterrupt:
