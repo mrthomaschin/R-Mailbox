@@ -1,4 +1,4 @@
-import send_sms
+from notifications import send_sms
 #import RPi.GPIO as GPIO
 from run import access
 
