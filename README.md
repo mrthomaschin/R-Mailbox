@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/mrthomaschin/CS179J-Team3.svg?branch=master)](https://travis-ci.org/mrthomaschin/CS179J-Team3)
 
-![GitHub](https://img.shields.io/github/license/mrthomaschin/CS179J-Team3)
 
 ## Project Desicription
 
