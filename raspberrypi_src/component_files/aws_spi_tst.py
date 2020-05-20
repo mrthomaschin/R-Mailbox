@@ -8,6 +8,11 @@ app = Flask(__name__)
 ask = Ask(app, '/')
 
 
+# for testing purposes
+def default(a, b):
+    assert a + b == 0, "test failed"
+
+
 def createSPI(bus, device):
     spi = spidev.SpiDev()
 
