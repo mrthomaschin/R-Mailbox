@@ -1,4 +1,5 @@
 import pytest
+from raspberrypi_src.component_files.aws_spi_tst import 
 
 
 def test_default():
