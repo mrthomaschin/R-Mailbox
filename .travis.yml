@@ -8,6 +8,7 @@ python:
 #dependencies
 install:
   - pip install -r requirements.txt
+  - pip install -e
   #run tests
 script:
   - pytest

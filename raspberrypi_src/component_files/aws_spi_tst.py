@@ -27,7 +27,7 @@ def isMail():
     atmegaSPI.xfer([Send_Status])
     sensorValue = atmegaSPI.readbytes(1)[0]
 
-    print ("Current Sensor Status: ", sensorValue)
+    print("Current Sensor Status: ", sensorValue)
 
     atmegaSPI.close()
 
