@@ -8,6 +8,11 @@ app = Flask(__name__)
 ask = Ask(app, '/')
 
 
+# for testing purposes
+def default(a, b):
+    assert a + b == 0, "test failed"
+
+
 def createSPI(bus, device):
     spi = spidev.SpiDev()
 
@@ -27,7 +32,7 @@ def isMail():
     atmegaSPI.xfer([Send_Status])
     sensorValue = atmegaSPI.readbytes(1)[0]
 
-    print ("Current Sensor Status: ", sensorValue)
+    print("Current Sensor Status: ", sensorValue)
 
     atmegaSPI.close()
 

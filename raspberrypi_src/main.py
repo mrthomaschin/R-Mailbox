@@ -10,15 +10,10 @@ send_sms.sendSMS()
 #while (True):
 #if GPIO.input(23) == GPIO.HIGH:
 
+#   if access == 1:
+#GPIO.output(24, 1)
+#       print("Door Opened")
 
- #   if access == 1:
-    #GPIO.output(24, 1)
- #       print("Door Opened")
-
- #   if access == 0:
-    #GPIO.output(24, 0)
- #       print("Door Closed")
-
-
-
-
+#   if access == 0:
+#GPIO.output(24, 0)
+#       print("Door Closed")
