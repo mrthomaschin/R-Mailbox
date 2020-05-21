@@ -20,5 +20,6 @@ script:
   - pytest
 
 branches:
-  only:
-    - master
+  - master
+  - tchin006/AWS_Atmega
+  - cgray009/functionality
