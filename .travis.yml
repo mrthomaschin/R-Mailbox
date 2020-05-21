@@ -10,7 +10,12 @@ python:
 #dependencies
 install:
   - pip install -r requirements.txt
-  #run tests
+  
+env:
+  travis encrypt TWILIO_SID="TWILIO_ACCOUNT_SID"
+  travis encrypt TWILIO_AUTH="TWILIO_AUTH_TOKEN"
+  
+#run tests
 script:
   - pytest
 
