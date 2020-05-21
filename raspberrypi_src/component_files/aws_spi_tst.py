@@ -10,7 +10,7 @@ ask = Ask(app, '/')
 
 # for testing purposes
 def default(a, b):
-    assert a + b == 0, "test failed"
+    return a + b
 
 
 def createSPI(bus, device):
@@ -51,6 +51,7 @@ if __name__ == '__main__':
 
     try:
         #atmegaSPI = createSPI(0, 0)
+
         app.run(debug=True)
 
     except KeyboardInterrupt:
