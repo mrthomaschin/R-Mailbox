@@ -1,3 +1,5 @@
+language: c
+
 language: python
 python:
   - "3.4"
@@ -8,11 +10,16 @@ python:
 #dependencies
 install:
   - pip install -r requirements.txt
-  - pip install spidev
-  #run tests
+  
+env:
+  travis encrypt TWILIO_SID=os.getenv("TWILIO_ACCOUNT_SID")
+  travis encrypt TWILIO_AUTH=os.getenv("TWILIO_AUTH_TOKEN")
+  
+#run tests
 script:
   - pytest
 
 branches:
-  only:
-    - master
+  - master
+  - tchin006/AWS_Atmega
+  - cgray009/functionality
