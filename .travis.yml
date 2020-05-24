@@ -23,3 +23,9 @@ branches:
   - master
   - tchin006/AWS_Atmega
   - cgray009/functionality
+  - noahij05/RPi_facerec_fingerprint
+  - mdeso001/Atmega_IR_Servo
+  - jhalvorson6687/RPiReplySMS_Twilio
+  - jhalvorson6687-patch-1
+  - jhalvorson6687/unit_tests
+
