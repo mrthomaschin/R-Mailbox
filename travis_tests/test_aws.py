@@ -8,8 +8,8 @@
 # sys.modules['spidev'] = Mock()
 # sys.modules['flask_ask'] = Mock()
 
-# # from travis_tests.aws_tst import default
-# # from raspberrypi_src.component_files.tst import default
+# from travis_tests.aws_tst import default
+# from raspberrypi_src.component_files.tst import default
 # from raspberrypi_src.component_files.aws_spi_tst import default, ask
 
 # class statement_mock():
@@ -26,7 +26,7 @@ def test_default():
 # def test_default():
 #     assert default(1, 2) == 3, "test failed"
 
-# #Raspberry Pi sends a statement to Alexa
+#Raspberry Pi sends a statement to Alexa
 # def test_aws():
 #     statement = isMail()
 #     print(statement.stmnt)
