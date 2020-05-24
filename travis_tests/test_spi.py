@@ -1,6 +1,5 @@
 import sys
 import fake_rpi
-import unittest
 from unittest.mock import Mock
 
 sys.modules['RPi'] = fake_rpi.RPi  # Fake RPi
@@ -10,13 +9,7 @@ sys.modules['flask_ask'] = Mock()
 
 # from travis_tests.aws_tst import default
 # from raspberrypi_src.component_files.tst import default
-from raspberrypi_src.component_files.aws_spi_tst import default, isMail
-
-
-class statement_mock():
-    def __init__(self, str):
-        self.stmnt = str
-
+from raspberrypi_src.component_files.aws_spi_tst import default, createSPI
 
 # def test_default():
 #     a = 1
@@ -28,8 +21,7 @@ def test_default():
     assert default(1, 2) == 3, "test failed"
 
 
-#Raspberry Pi sends a statement to Alexa
-def test_aws():
-    statement = isMail()
-    print(statement.stmnt)
-    assert statement != "", "test failed"
+def test_createSPI():
+    spi = createSPI(0, 0)
+    print(spi)
+    assert spi != "", "test failed"

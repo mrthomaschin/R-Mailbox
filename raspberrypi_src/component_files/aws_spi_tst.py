@@ -15,7 +15,6 @@ def default(a, b):
 
 def createSPI(bus, device):
     spi = spidev.SpiDev()
-
     spi.open(bus, device)
     spi.max_speed_hz = 1000000
     spi.mode = 0
