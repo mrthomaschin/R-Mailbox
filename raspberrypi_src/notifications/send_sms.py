@@ -1,7 +1,7 @@
 # Script to send out SMS message to a users phone. This utilizes the SMS API provided by Twilio.
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
-from raspberrypi_src.notifications.settings import *
+from notifications.settings import *
 import logging
 
 account_sid = TWILIO_SID
