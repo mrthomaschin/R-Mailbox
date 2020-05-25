@@ -1,5 +1,6 @@
 import sys
 import fake_rpi
+import fake_rpi
 from unittest.mock import Mock
 
 sys.modules['RPi'] = fake_rpi.RPi  # Fake RPi
