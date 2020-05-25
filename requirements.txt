@@ -10,7 +10,7 @@ PyYAML==3.12
 six==1.11.0
 python-dateutil
 itsdangerous>=0.21 
-Werkzeug>=0.7  
+Werkzeug<1
 click>=2.0 
 Jinja2>=2.4 
 cryptography>=1.7 
