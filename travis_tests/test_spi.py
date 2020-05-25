@@ -1,4 +1,5 @@
 import sys
+sys.path.append("..")
 import fake_rpi
 import fake_rpi
 from unittest.mock import Mock
