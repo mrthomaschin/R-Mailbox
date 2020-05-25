@@ -9,7 +9,7 @@ python:
 
 #dependencies
 before_install:
-  - easy_install distribute
+  - python -m pip install pip==9.0.3
 
 install:
   - pip install -r requirements.txt
