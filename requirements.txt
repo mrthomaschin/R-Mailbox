@@ -2,7 +2,7 @@ Flask>=0.12
 twilio~=6.38.1
 python-dotenv~=0.13.0
 fake-rpi>=0.6.2
-Flask-Ask>=0.9.8
+flask-ask>=0.9.8
 aniso8601==1.2.0
 pyOpenSSL==17.0.0
 PyYAML==3.12
