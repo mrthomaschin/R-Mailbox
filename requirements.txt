@@ -1,3 +1,4 @@
 Flask>=0.12
 twilio~=6.38.1
 python-dotenv~=0.13.0
+Werkzeug~=0.16.0
