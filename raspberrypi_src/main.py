@@ -1,6 +1,6 @@
 from notifications import send_sms
 #import RPi.GPIO as GPIO
-from run import access
+#from run import access
 
 #GPIO.setwarnings(False)
 #GPIO.setmode(GPIO.BOARD)
