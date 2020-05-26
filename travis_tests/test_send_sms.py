@@ -10,7 +10,8 @@
 
 #     to = '+18287126687'
 #     from_ = '+12058329927'
-#     response = raspberrypi_src.notifications.send_sms.sendSMS(to, from_, message)
+#     response = raspberrypi_src.notifications.send_sms.sendSMS(
+#         to, from_, message)
 
 #     assert create_message_mock.called is True
 #     assert response == expected_sid

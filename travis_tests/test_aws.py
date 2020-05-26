@@ -2,7 +2,7 @@ import sys
 sys.path.append("..")
 import fake_rpi
 from unittest import mock
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, patch, Mock
 
 sys.modules['RPi'] = fake_rpi.RPi  # Fake RPi
 sys.modules['RPi.GPIO'] = fake_rpi.RPi.GPIO  # Fake GPIO
@@ -10,7 +10,7 @@ sys.modules['spidev'] = MagicMock()
 
 # from travis_tests.aws_tst import default
 # from raspberrypi_src.component_files.tst import default
-from raspberrypi_src.component_files.aws_spi_tst import default, isMail
+from raspberrypi_src.main import default, isMail
 
 # def test_default():
 #     a = 1
