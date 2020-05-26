@@ -39,6 +39,7 @@ def sendSMS(to, from_, message):
                 to=to
             )
     except TwilioRestException as e:
-        logging.error(f'Error: {e}')
+        # logging.error(f'Error: {e}\\')
+        logging.error(f'Error: \\')
         return
     return sent_message.sid

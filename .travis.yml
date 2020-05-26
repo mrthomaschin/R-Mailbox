@@ -14,9 +14,6 @@ before_install:
 install:
   - pip install -r requirements.txt
 
-env: travis encrypt TWILIO_SID=os.getenv("TWILIO_ACCOUNT_SID")
-  travis encrypt TWILIO_AUTH=os.getenv("TWILIO_AUTH_TOKEN")
-
 #run tests
 script:
   - pytest
