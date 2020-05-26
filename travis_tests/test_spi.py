@@ -9,7 +9,7 @@ sys.modules['spidev'] = MagicMock()
 
 # from travis_tests.aws_tst import default
 # from raspberrypi_src.component_files.tst import default
-from raspberrypi_src.main import default, createSPI
+from raspberrypi_src.component_files.aws_spi_tst import default, createSPI
 
 # def test_default():
 #     a = 1
