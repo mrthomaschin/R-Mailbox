@@ -30,8 +30,5 @@ branches:
   - jhalvorson6687/RPiReplySMS_Twilio
   - jhalvorson6687-patch-1
   - jhalvorson6687/unit_tests
-<<<<<<< HEAD
   - mdeso001_jhalvorson6687/notifications
-=======
->>>>>>> e2ad505622fe75b9895a43fa9c1b56f985ca983d
 
