@@ -8,9 +8,13 @@ app = Flask(__name__)
 ask = Ask(app, '/')
 
 
+# for testing purposes
+def default(a, b):
+    return a + b
+
+
 def createSPI(bus, device):
     spi = spidev.SpiDev()
-
     spi.open(bus, device)
     spi.max_speed_hz = 1000000
     spi.mode = 0
@@ -27,7 +31,7 @@ def isMail():
     atmegaSPI.xfer([Send_Status])
     sensorValue = atmegaSPI.readbytes(1)[0]
 
-    print ("Current Sensor Status: ", sensorValue)
+    print("Current Sensor Status: ", sensorValue)
 
     atmegaSPI.close()
 
@@ -46,6 +50,7 @@ if __name__ == '__main__':
 
     try:
         #atmegaSPI = createSPI(0, 0)
+
         app.run(debug=True)
 
     except KeyboardInterrupt:

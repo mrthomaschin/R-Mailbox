@@ -1,17 +1,31 @@
+language: c
 language: python
+
 python:
-  - "2.7"
-  - "3.4"
   - "3.5"
   - "3.6"
+  - "3.7"
+  - "3.8"
 
 #dependencies
+before_install:
+  - python -m pip install pip==9.0.3
+
 install:
   - pip install -r requirements.txt
-  #run tests
+
+#run tests
 script:
   - pytest
 
 branches:
-  only:
-    - master
+  - master
+  - tchin006/AWS_Atmega
+  - cgray009/functionality
+  - noahij05/RPi_facerec_fingerprint
+  - mdeso001/Atmega_IR_Servo
+  - jhalvorson6687/RPiReplySMS_Twilio
+  - jhalvorson6687-patch-1
+  - jhalvorson6687/unit_tests
+  - mdeso001_jhalvorson6687/notifications
+
