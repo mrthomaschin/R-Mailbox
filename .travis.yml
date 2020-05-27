@@ -1,20 +1,19 @@
 language: c
-
 language: python
+
 python:
-  - "3.4"
   - "3.5"
   - "3.6"
   - "3.7"
+  - "3.8"
 
 #dependencies
+before_install:
+  - python -m pip install pip==9.0.3
+
 install:
   - pip install -r requirements.txt
-  
-env:
-  travis encrypt TWILIO_SID=os.getenv("TWILIO_ACCOUNT_SID")
-  travis encrypt TWILIO_AUTH=os.getenv("TWILIO_AUTH_TOKEN")
-  
+
 #run tests
 script:
   - pytest
@@ -28,4 +27,5 @@ branches:
   - jhalvorson6687/RPiReplySMS_Twilio
   - jhalvorson6687-patch-1
   - jhalvorson6687/unit_tests
+  - mdeso001_jhalvorson6687/notifications
 

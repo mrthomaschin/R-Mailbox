@@ -1,2 +1,19 @@
 Flask>=0.12
+flask-ask>=0.9.8
 twilio~=6.38.1
+python-dotenv~=0.13.0
+importlib-metadata >= 1.1.0
+fake-rpi>=0.6.2
+aniso8601==1.2.0
+pyOpenSSL==17.0.0
+PyYAML>=3.12
+six==1.11.0
+python-dateutil
+itsdangerous>=0.21 
+Werkzeug<1
+click>=2.0 
+Jinja2>=2.4 
+cryptography>=1.7 
+MarkupSafe>=0.23 
+cffi!=1.11.3,>=1.8 
+pycparser >= 2.20 
