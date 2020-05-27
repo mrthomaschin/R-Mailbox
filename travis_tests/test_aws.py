@@ -22,8 +22,16 @@ def test_default():
     assert default(1, 2) == 3, "test failed"
 
 
+class atmegaSPIMock:
+    def xfer(self, x):
+        return
+
+    def readbytes(self, y):
+        return 1
+
+
 # Raspberry Pi does not detect package, sends a statement to Alexa
-@patch.object(isMail, 'atmegaSPI', side_effect=0)
+@patch('spidev.atmegaSPI', atmegaSPIMock)
 def test_aws_command_no():
     statement_mock = isMail()
     phrase = statement_mock._response['outputSpeech']['text']

@@ -76,7 +76,6 @@ def isMail():
 
     #SPI Command to Atmega
     Send_Status = 0x10
-
     atmegaSPI.xfer([Send_Status])
     sensorValue = atmegaSPI.readbytes(1)[0]
 
