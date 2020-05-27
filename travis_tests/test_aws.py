@@ -10,7 +10,7 @@ sys.modules['spidev'] = MagicMock()
 
 # from travis_tests.aws_tst import default
 # from raspberrypi_src.component_files.tst import default
-from raspberrypi_src.component_files.aws_spi_tst import default, isMail
+from raspberrypi_src.main import default, isMail, createSPI
 
 # def test_default():
 #     a = 1
@@ -23,6 +23,7 @@ def test_default():
 
 
 # Raspberry Pi does not detect package, sends a statement to Alexa
+@patch.object(isMail, 'atmegaSPI', side_effect=0)
 def test_aws_command_no():
     statement_mock = isMail()
     phrase = statement_mock._response['outputSpeech']['text']
