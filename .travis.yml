@@ -33,7 +33,7 @@ matrix:
         - jhalvorson6687-patch-1
         - jhalvorson6687/unit_tests
         - mdeso001_jhalvorson6687/notifications
-      python: "3.7"
+      python: "3.6"
     - language: python
       #dependencies
       before_install:
@@ -56,7 +56,7 @@ matrix:
         - jhalvorson6687-patch-1
         - jhalvorson6687/unit_tests
         - mdeso001_jhalvorson6687/notifications
-      python: "3.6"
+      python: "3.7"
     - language: python
       #dependencies
       before_install:
