@@ -5,3 +5,4 @@ venv
 *.env
 /.vscode
 twilio.env
+sendgrid.env

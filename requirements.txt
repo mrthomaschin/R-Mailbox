@@ -16,4 +16,5 @@ Jinja2>=2.4
 cryptography>=1.7 
 MarkupSafe>=0.23 
 cffi!=1.11.3,>=1.8 
-pycparser >= 2.20 
+pycparser >= 2.20
+sendgrid ~= 6.3.1
