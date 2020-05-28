@@ -13,14 +13,13 @@ matrix:
         - mdeso001_jhalvorson6687/notifications
       
       compiler: gcc
-      
- #     before_install:
-#  	- sudo apt-get update -qq
 
- #     install:
-#  	- sudo apt-get install -qq gcc-avr binutils-avr avr-libc
+      before_script:
+        - cd atmega_src     
 
-#      script: make
+
+
+      script: make
       
     - language: python
       #dependencies
