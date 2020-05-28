@@ -12,17 +12,15 @@ matrix:
         - jhalvorson6687/unit_tests
         - mdeso001_jhalvorson6687/notifications
       
-      compiler:
-        - clang
-        - gcc
+      compiler: gcc
       
-      before_install:
-  	- sudo apt-get update -qq
+ #     before_install:
+#  	- sudo apt-get update -qq
 
-      install:
-  	- sudo apt-get install -qq gcc-avr binutils-avr avr-libc
+ #     install:
+#  	- sudo apt-get install -qq gcc-avr binutils-avr avr-libc
 
-      script: make
+#      script: make
       
     - language: python
       #dependencies
