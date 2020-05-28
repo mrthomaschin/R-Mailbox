@@ -3,5 +3,5 @@ venv
 .idea
 .DS_Store
 *.env
-/.vscode
+*/.vscode
 twilio.env
