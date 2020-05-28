@@ -1,4 +1,4 @@
-#language: c
+language: c
 
 language: python
 
@@ -10,22 +10,21 @@ python:
 #dependencies
 before_install:
   - python -m pip install pip==9.0.3
-#  - sudo apt-get update -qq	
+  - sudo apt-get update -qq	
 
 install:
   - pip install -r requirements.txt
-#  - sudo apt-get install -qq gcc-avr binutils-avr avr-libc
+  - sudo apt-get install -qq gcc-avr binutils-avr avr-libc
 
 env:
   travis encrypt TWILIO_SID=os.getenv("TWILIO_ACCOUNT_SID")
   travis encrypt TWILIO_AUTH=os.getenv("TWILIO_AUTH_TOKEN")
   
-=======
 
 #run tests
 script:
   - pytest
-#  - make
+  - make
 
 branches:
   - master
