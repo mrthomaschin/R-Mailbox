@@ -1,7 +1,5 @@
-matrix:
-  include:
-    -language: c
-    -language: python
+language: python
+language: c
 
 python:
   - "3.6"
