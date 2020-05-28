@@ -11,6 +11,9 @@
 
 void run_tests();
 
+extern unsigned char isPackage;
+
+extern unsigned char doorClosed;
 
 
 #endif /* MAIN_H_ */

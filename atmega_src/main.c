@@ -7,8 +7,7 @@
 #include "ir.h"
 #include "servo.h"
 #include "main.h" 
-#define E_FAIL (-1)
-#define S_OK (0)
+
 
 //Button on PA0 mocks authorization signal to unlock
 #define AUTHORIZED ~PINA & 0x01
@@ -39,6 +38,7 @@ int packageIR_Tick(int packageIR_state)
 	{
 	case Detect_Package:
 		isPackage = detectPackage();
+	//	PORTD = isPackage;
 		break;
 
 	default:
@@ -71,6 +71,7 @@ int doorIR_Tick(int doorIR_state)
 	{
 	case Detect_Door:
 		doorClosed = detectDoor();
+	//	PORTD = doorClosed;
 		break;
 
 	default:
@@ -89,13 +90,16 @@ enum lock_States
 };
 int lock_Tick(int lock_state)
 {
+	
 	//State Transitions
 	switch (lock_state)
 	{
 	case Unlocked:
 		if (isPackage && doorClosed)
 		{
+			
 			lock_state = Lock;
+			//PORTD = lock_state;	
 		}
 		break;
 
@@ -104,10 +108,13 @@ int lock_Tick(int lock_state)
 		break;
 
 	case Locked:
-		if (AUTHORIZED)
+		if(AUTHORIZED)
 		{
+						
 			lock_state = Unlock;
+			
 		}
+		
 		break;
 
 	case Unlock:
@@ -129,6 +136,7 @@ int lock_Tick(int lock_state)
 
 	case Lock:
 		lockDoor();
+		//PORTD = lock_state;
 		break;
 
 	case Locked:
@@ -136,8 +144,9 @@ int lock_Tick(int lock_state)
 		PORTC = 0x01;
 		break;
 
-	case Unlock:
+	case Unlock:		
 		unlockDoor();
+		//PORTD = lock_state;
 		break;
 
 	default:
@@ -146,6 +155,8 @@ int lock_Tick(int lock_state)
 
 	return lock_state;
 }
+
+
 
 int main(void)
 {
@@ -163,6 +174,8 @@ int main(void)
 	DDRD = 0xFF;
 	PORTD = 0x00;
 	
+	
+	PINA = 0x01;
 	run_tests();
 
 	TimerSet(1);
