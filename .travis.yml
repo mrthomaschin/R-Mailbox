@@ -1,5 +1,5 @@
 matrix:
-  -include:
+  include:
     -language: c
     -language: python
 
