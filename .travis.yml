@@ -1,31 +1,82 @@
-language: c
-language: python
+matrix:
+  include:
+    - language: c
+      branches:
+        - master
+        - tchin006/AWS_Atmega
+        - cgray009/functionality
+        - noahij05/RPi_facerec_fingerprint
+        - mdeso001/Atmega_IR_Servo
+        - jhalvorson6687/RPiReplySMS_Twilio
+        - jhalvorson6687-patch-1
+        - jhalvorson6687/unit_tests
+        - mdeso001_jhalvorson6687/notifications
+    - language: python
+      #dependencies
+      before_install:
+        - python -m pip install pip==9.0.3
 
-python:
-  - "3.5"
-  - "3.6"
-  - "3.7"
-  - "3.8"
+      install:
+        - pip install -r requirements.txt
 
-#dependencies
-before_install:
-  - python -m pip install pip==9.0.3
+      #run tests
+      script:
+        - pytest
 
-install:
-  - pip install -r requirements.txt
+      branches:
+        - master
+        - tchin006/AWS_Atmega
+        - cgray009/functionality
+        - noahij05/RPi_facerec_fingerprint
+        - mdeso001/Atmega_IR_Servo
+        - jhalvorson6687/RPiReplySMS_Twilio
+        - jhalvorson6687-patch-1
+        - jhalvorson6687/unit_tests
+        - mdeso001_jhalvorson6687/notifications
+      python: "3.7"
+    - language: python
+      #dependencies
+      before_install:
+        - python -m pip install pip==9.0.3
 
-#run tests
-script:
-  - pytest
+      install:
+        - pip install -r requirements.txt
 
-branches:
-  - master
-  - tchin006/AWS_Atmega
-  - cgray009/functionality
-  - noahij05/RPi_facerec_fingerprint
-  - mdeso001/Atmega_IR_Servo
-  - jhalvorson6687/RPiReplySMS_Twilio
-  - jhalvorson6687-patch-1
-  - jhalvorson6687/unit_tests
-  - mdeso001_jhalvorson6687/notifications
+      #run tests
+      script:
+        - pytest
 
+      branches:
+        - master
+        - tchin006/AWS_Atmega
+        - cgray009/functionality
+        - noahij05/RPi_facerec_fingerprint
+        - mdeso001/Atmega_IR_Servo
+        - jhalvorson6687/RPiReplySMS_Twilio
+        - jhalvorson6687-patch-1
+        - jhalvorson6687/unit_tests
+        - mdeso001_jhalvorson6687/notifications
+      python: "3.6"
+    - language: python
+      #dependencies
+      before_install:
+        - python -m pip install pip==9.0.3
+
+      install:
+        - pip install -r requirements.txt
+
+      #run tests
+      script:
+        - pytest
+
+      branches:
+        - master
+        - tchin006/AWS_Atmega
+        - cgray009/functionality
+        - noahij05/RPi_facerec_fingerprint
+        - mdeso001/Atmega_IR_Servo
+        - jhalvorson6687/RPiReplySMS_Twilio
+        - jhalvorson6687-patch-1
+        - jhalvorson6687/unit_tests
+        - mdeso001_jhalvorson6687/notifications
+      python: "3.8"
