@@ -11,29 +11,58 @@ matrix:
         - jhalvorson6687-patch-1
         - jhalvorson6687/unit_tests
         - mdeso001_jhalvorson6687/notifications
-    - language: python
-      #dependencies
-      before_install:
-        - python -m pip install pip==9.0.3
+      
+      compiler:
+        - clang
+        - gcc
+   
+      # works on Precise and Trusty
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.9
+      env:
+         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
 
-      install:
-        - pip install -r requirements.txt
+    # works on Precise and Trusty
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5
+      env:
+         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
 
-      #run tests
-      script:
-        - pytest
+    # works on Precise and Trusty
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
 
-      branches:
-        - master
-        - tchin006/AWS_Atmega
-        - cgray009/functionality
-        - noahij05/RPi_facerec_fingerprint
-        - mdeso001/Atmega_IR_Servo
-        - jhalvorson6687/RPiReplySMS_Twilio
-        - jhalvorson6687-patch-1
-        - jhalvorson6687/unit_tests
-        - mdeso001_jhalvorson6687/notifications
-      python: "3.6"
+    # works on Precise and Trusty
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+
+before_install:
+    - eval "${MATRIX_EVAL}"
+
     - language: python
       #dependencies
       before_install:
@@ -57,6 +86,29 @@ matrix:
         - jhalvorson6687/unit_tests
         - mdeso001_jhalvorson6687/notifications
       python: "3.7"
+    - language: python
+      #dependencies
+      before_install:
+        - python -m pip install pip==9.0.3
+
+      install:
+        - pip install -r requirements.txt
+
+      #run tests
+      script:
+        - pytest
+
+      branches:
+        - master
+        - tchin006/AWS_Atmega
+        - cgray009/functionality
+        - noahij05/RPi_facerec_fingerprint
+        - mdeso001/Atmega_IR_Servo
+        - jhalvorson6687/RPiReplySMS_Twilio
+        - jhalvorson6687-patch-1
+        - jhalvorson6687/unit_tests
+        - mdeso001_jhalvorson6687/notifications
+      python: "3.6"
     - language: python
       #dependencies
       before_install:
