@@ -25,7 +25,8 @@ matrix:
 
       script: 
          - make
-  #       - chmod u+x ./run
+         - chmod u+x ./run.sh
+         ./run.sh
       
     - language: python
       #dependencies
