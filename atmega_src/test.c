@@ -288,7 +288,7 @@ void run_tests()
 	}
 	
 	
-	if (E_FAIL == testPackageDoorNotLock()
+	if (E_FAIL == testPackageDoorNotLock())
 	{
 		
 		PORTD = 0xFF;

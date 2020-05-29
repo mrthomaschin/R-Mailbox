@@ -9,11 +9,8 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-void run_tests();
+//void run_tests();
 
-extern unsigned char isPackage;
-
-extern unsigned char doorClosed;
 
 
 #endif /* MAIN_H_ */
