@@ -26,9 +26,9 @@ matrix:
       script: 
          - make
 
-      after_script:
-         - chmod u+x ./run.sh
-         - bash run.sh
+      deploy:
+#         - chmod u+x ./run.sh
+         - bash ./run.sh
       
     - language: python
       #dependencies
