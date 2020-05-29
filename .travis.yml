@@ -12,12 +12,14 @@ matrix:
         - jhalvorson6687/unit_tests
         - mdeso001_jhalvorson6687/notifications
       
-      compiler: gcc
+  #    compiler: gcc
 
-      before_script:
-        - cd atmega_src     
+#      before_script:
+ #       - cd atmega_src     
 
-      script: make
+      script: 
+	- make
+	- chmod u+x ./run
       
     - language: python
       #dependencies
