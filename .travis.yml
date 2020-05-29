@@ -1,25 +1,82 @@
-language: c
+matrix:
+  include:
+    - language: c
+      branches:
+        - master
+        - tchin006/AWS_Atmega
+        - cgray009/functionality
+        - noahij05/RPi_facerec_fingerprint
+        - mdeso001/Atmega_IR_Servo
+        - jhalvorson6687/RPiReplySMS_Twilio
+        - jhalvorson6687-patch-1
+        - jhalvorson6687/unit_tests
+        - mdeso001_jhalvorson6687/notifications
+    - language: python
+      #dependencies
+      before_install:
+        - python -m pip install pip==9.0.3
 
-language: python
-python:
-  - "3.4"
-  - "3.5"
-  - "3.6"
-  - "3.7"
+      install:
+        - pip install -r requirements.txt
 
-#dependencies
-install:
-  - pip install -r requirements.txt
-  
-env:
-  travis encrypt TWILIO_SID=os.getenv("TWILIO_ACCOUNT_SID")
-  travis encrypt TWILIO_AUTH=os.getenv("TWILIO_AUTH_TOKEN")
-  
-#run tests
-script:
-  - pytest
+      #run tests
+      script:
+        - pytest
 
-branches:
-  - master
-  - tchin006/AWS_Atmega
-  - cgray009/functionality
+      branches:
+        - master
+        - tchin006/AWS_Atmega
+        - cgray009/functionality
+        - noahij05/RPi_facerec_fingerprint
+        - mdeso001/Atmega_IR_Servo
+        - jhalvorson6687/RPiReplySMS_Twilio
+        - jhalvorson6687-patch-1
+        - jhalvorson6687/unit_tests
+        - mdeso001_jhalvorson6687/notifications
+      python: "3.6"
+    - language: python
+      #dependencies
+      before_install:
+        - python -m pip install pip==9.0.3
+
+      install:
+        - pip install -r requirements.txt
+
+      #run tests
+      script:
+        - pytest
+
+      branches:
+        - master
+        - tchin006/AWS_Atmega
+        - cgray009/functionality
+        - noahij05/RPi_facerec_fingerprint
+        - mdeso001/Atmega_IR_Servo
+        - jhalvorson6687/RPiReplySMS_Twilio
+        - jhalvorson6687-patch-1
+        - jhalvorson6687/unit_tests
+        - mdeso001_jhalvorson6687/notifications
+      python: "3.7"
+    - language: python
+      #dependencies
+      before_install:
+        - python -m pip install pip==9.0.3
+
+      install:
+        - pip install -r requirements.txt
+
+      #run tests
+      script:
+        - pytest
+
+      branches:
+        - master
+        - tchin006/AWS_Atmega
+        - cgray009/functionality
+        - noahij05/RPi_facerec_fingerprint
+        - mdeso001/Atmega_IR_Servo
+        - jhalvorson6687/RPiReplySMS_Twilio
+        - jhalvorson6687-patch-1
+        - jhalvorson6687/unit_tests
+        - mdeso001_jhalvorson6687/notifications
+      python: "3.8"

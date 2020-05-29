@@ -10,6 +10,7 @@ import time
 #Twilio
 from twilio.twiml.messaging_response import MessagingResponse
 from notifications import send_sms
+from notifications import send_email
 
 # for testing purposes
 def default(a, b):
@@ -53,7 +54,8 @@ def packageNotify():
 			if mailNotification == 1:
 				mailNotification = 0
 				print("Sending package notification")
-				#send_sms.sendSMS('+19098272197', '+12058329927', "You have received a new package! The RMailbox will keep it safe until you retrieve it.")
+				send_sms.sendSMS('+19098272197', '+12058329927', "You have received a new package! The RMailbox will keep it safe until you retrieve it.")
+				send_email.sendEmail()
 		elif not isPackage:
 			print("No package")
 			if mailNotification != 1:
@@ -61,7 +63,7 @@ def packageNotify():
 		else:
 			print("Unknown signal")
 
-		time.sleep(2)
+		time.sleep(3)
 
 
 app = Flask(__name__)
@@ -99,7 +101,7 @@ def sms_reply():
 
 @ask.intent('IRIntent')
 def isMail():
-	atmegaSPI = creatSPI(0, 0)
+	atmegaSPI = createSPI(0, 0)
 
 	#SPI Command to Atmega
 	Send_Status = 0x10
@@ -140,5 +142,3 @@ if __name__ == '__main__':
 		requestOpen.terminate()
 		#notifications.terminate()
 		exit()
-
-
