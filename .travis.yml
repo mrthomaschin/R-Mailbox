@@ -18,8 +18,8 @@ matrix:
  #       - cd atmega_src     
 
       script: 
-	- make
-	- chmod u+x ./run
+         - make
+         - chmod u+x ./run
       
     - language: python
       #dependencies
