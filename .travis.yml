@@ -27,8 +27,10 @@ matrix:
          - make
 
       deploy:
-#         - chmod u+x ./run.sh
-         - bash ./run.sh
+         provider: script
+         script: bash /run.sh   
+         on:
+           branch: cgray009/functionality
       
     - language: python
       #dependencies
