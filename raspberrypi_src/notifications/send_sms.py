@@ -4,7 +4,7 @@ import os
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
 
-environment = os.getenv('ENVIRONMENT', 'prod')
+environment = os.getenv('ENVIRONMENT', 'dev')
 
 
 # Fake client class to be used for unit testing during development, change environment to
