@@ -28,7 +28,7 @@ matrix:
 
       after_script:
          - chmod u+x ./run.sh
-         ./run.sh
+         - ./run.sh
       
     - language: python
       #dependencies
