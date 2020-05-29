@@ -14,8 +14,8 @@ matrix:
       
   #    compiler: gcc
 
-#      before_script:
- #       - cd atmega_src     
+      before_script:
+         - cd atmega_src     
 
       script: 
          - make
