@@ -23,8 +23,8 @@ matrix:
 
       script: 
          - make
-#         - chmod ugo+x run.sh
-         - ./main.c
+         - chmod ugo+x run.sh
+         - ./run.sh
 
     - language: python
       #dependencies
