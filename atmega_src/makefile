@@ -15,6 +15,9 @@ OPT = s
 # Name of this Makefile (used for "make depend").
 MAKEFILE = Makefile
 
+# define the executable file 
+MAIN = main
+
 # Debugging format.
 # Native formats for AVR-GCC's -g are stabs [default], or dwarf-2.
 # AVR (extended) COFF requires stabs, plus an avr-objcopy run.
