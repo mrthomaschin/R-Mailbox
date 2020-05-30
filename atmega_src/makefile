@@ -223,4 +223,11 @@ depend:
 		>> $(MAKEFILE); \
 	$(CC) -M -mmcu=$(MCU) $(CDEFS) $(CINCS) $(SRC) $(ASRC) >> $(MAKEFILE)
 
-.PHONY:	all build elf hex eep lss sym program coff extcoff clean depend
+main.o : main.c
+
+#.PHONY:	all build elf hex eep lss sym program coff extcoff clean depend
+.PHONY: run-test
+run-test: test
+	./test
+test: main.o
+	$(CC) $^ $(LDFLAGS) -o $@
