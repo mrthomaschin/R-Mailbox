@@ -11,20 +11,19 @@ matrix:
         - jhalvorson6687-patch-1
         - jhalvorson6687/unit_tests
         - mdeso001_jhalvorson6687/notifications
-      
+
       before_script:
-         - cd atmega_src     
+        - cd travis_tests
 
       before_install:
-         - sudo apt-get update -qq
+        - sudo apt-get update -qq
 
       install:
-         - sudo apt-get install -qq gcc-avr binutils-avr avr-libc
+        - sudo apt-get install -qq gcc-avr binutils-avr avr-libc
 
-      script: 
-         - make
-         - chmod ugo+x run.sh
-         - ./run.sh
+      script:
+        - gcc -o test_main test_main.c
+        - ./test_main
 
     - language: python
       #dependencies
