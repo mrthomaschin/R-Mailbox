@@ -25,6 +25,7 @@ matrix:
          - make
            
       after_success:
+         - - cd atmega_src
          - chmod ugo+x run.sh
          - ./run.sh
 
