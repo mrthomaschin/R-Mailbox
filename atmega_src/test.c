@@ -4,17 +4,16 @@
  * Created: 5/28/2020 12:06:00 PM
  *  Author: Christian
  */ 
-//#include <avr/io.h>
-#include "main.h"
+#include <avr/io.h>
 #define E_FAIL (-1)
 #define S_OK (0)
 
 /*   test cases for doorIR_Tick() function  */
 int testDoorClosed() {
 	
-	PORTA = 0x10;
+	setPort(16);
 	
-	if ((doorIR_Tick(1) == 0) && !(PORTA & 0x10))
+	if ((doorIR_Tick(1) == 0) && !checkSensor(4))
 	{
 		
 		return E_FAIL;

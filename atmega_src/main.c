@@ -157,6 +157,15 @@ int lock_Tick(int lock_state)
 	return lock_state;
 }
 
+void setPort(int val)
+{
+	PORTA = val;  	
+}
+
+int checkSensor(int val)
+{
+	return (PORTA & 0x10);
+}
 
 int main(void)
 {
