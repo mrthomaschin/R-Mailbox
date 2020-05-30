@@ -1,6 +1,5 @@
 
 
 #!/bin/sh
-echo "Build Ran"
-make
-./main.c
+gcc -o main main.c
+./main
