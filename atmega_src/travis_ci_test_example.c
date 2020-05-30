@@ -10,12 +10,12 @@ int run_tests_default()
 
     if (x + y == 4)
     {
-        printf("Test passed\n");
+        printf("Test passed!\n");
         return S_OK;
     }
     else
     {
-        printf("Test failed\n");
+        printf("Test failed :(\n");
         return E_FAIL;
     }
 }
