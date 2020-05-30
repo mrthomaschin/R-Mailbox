@@ -11,29 +11,21 @@ matrix:
         - jhalvorson6687-patch-1
         - jhalvorson6687/unit_tests
         - mdeso001_jhalvorson6687/notifications
-    - language: python
-      #dependencies
+      
+      before_script:
+         - cd atmega_src     
+
       before_install:
-        - python -m pip install pip==9.0.3
+         - sudo apt-get update -qq
 
       install:
-        - pip install -r requirements.txt
+         - sudo apt-get install -qq gcc-avr binutils-avr avr-libc
 
-      #run tests
-      script:
-        - pytest
+      script: 
+         - make
+         - chmod ugo+x run.sh
+         - ./run.sh
 
-      branches:
-        - master
-        - tchin006/AWS_Atmega
-        - cgray009/functionality
-        - noahij05/RPi_facerec_fingerprint
-        - mdeso001/Atmega_IR_Servo
-        - jhalvorson6687/RPiReplySMS_Twilio
-        - jhalvorson6687-patch-1
-        - jhalvorson6687/unit_tests
-        - mdeso001_jhalvorson6687/notifications
-      python: "3.6"
     - language: python
       #dependencies
       before_install:
@@ -57,6 +49,29 @@ matrix:
         - jhalvorson6687/unit_tests
         - mdeso001_jhalvorson6687/notifications
       python: "3.7"
+    - language: python
+      #dependencies
+      before_install:
+        - python -m pip install pip==9.0.3
+
+      install:
+        - pip install -r requirements.txt
+
+      #run tests
+      script:
+        - pytest
+
+      branches:
+        - master
+        - tchin006/AWS_Atmega
+        - cgray009/functionality
+        - noahij05/RPi_facerec_fingerprint
+        - mdeso001/Atmega_IR_Servo
+        - jhalvorson6687/RPiReplySMS_Twilio
+        - jhalvorson6687-patch-1
+        - jhalvorson6687/unit_tests
+        - mdeso001_jhalvorson6687/notifications
+      python: "3.6"
     - language: python
       #dependencies
       before_install:
