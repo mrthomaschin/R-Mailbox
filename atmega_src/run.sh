@@ -1,4 +1,4 @@
 
 
 #!/bin/sh
-echo "Build Fail"
+echo "Build Ran"
