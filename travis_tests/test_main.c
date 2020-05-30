@@ -9,7 +9,7 @@ int run_tests()
     int x = 1;
     int y = 3;
 
-    if (x + y == 3)
+    if (x + y == 4)
     {
         return S_OK;
     }
