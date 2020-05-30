@@ -8,7 +8,7 @@ int run_tests_default()
     int x = 1;
     int y = 3;
 
-    if (x + y == 3)
+    if (x + y == 4)
     {
         printf("Test passed\n");
         return S_OK;
