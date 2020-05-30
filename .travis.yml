@@ -24,7 +24,7 @@ matrix:
       script: 
          - make
            
-      after_failer:
+      after_success:
          - chmod ugo+x run.sh
          - ./run.sh
 
