@@ -23,6 +23,8 @@ matrix:
 
       script: 
          - make
+           
+      after_failer:
          - chmod ugo+x run.sh
          - ./run.sh
 

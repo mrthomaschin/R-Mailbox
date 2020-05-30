@@ -1,4 +1,4 @@
 
 
 #!/bin/sh
-./Makefile
+echo "Build Fail"
