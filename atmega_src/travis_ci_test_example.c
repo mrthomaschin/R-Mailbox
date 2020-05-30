@@ -10,6 +10,7 @@ int run_tests_default()
 
     if (x + y == 3)
     {
+        printf("Test passed\n");
         return S_OK;
     }
     else
