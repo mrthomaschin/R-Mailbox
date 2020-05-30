@@ -12,8 +12,6 @@ matrix:
         - jhalvorson6687/unit_tests
         - mdeso001_jhalvorson6687/notifications
       
-  #    compiler: gcc
-
       before_script:
          - cd atmega_src     
 
@@ -25,8 +23,8 @@ matrix:
 
       script: 
          - make
-         - chmod ugo+x run.sh
-         - ./run.sh
+#         - chmod ugo+x run.sh
+         - ./main.c
 
     - language: python
       #dependencies
