@@ -22,9 +22,9 @@ matrix:
          - sudo apt-get install -qq gcc-avr binutils-avr avr-libc
 
       script: 
-         - make
-         - chmod ugo+x run.sh
-         - ./run.sh
+         - make testSomething
+ #        - chmod ugo+x run.sh
+  #       - ./run.sh
 
     - language: python
       #dependencies
