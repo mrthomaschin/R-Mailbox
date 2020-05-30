@@ -185,7 +185,7 @@ int main(void)
 	
 	
 	PINA = 0x01;
-	run_tests();
+	//run_tests();
 
 	TimerSet(1);
 	TimerOn();
