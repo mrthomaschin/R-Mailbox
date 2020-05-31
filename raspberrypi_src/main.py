@@ -49,7 +49,7 @@ def packageNotify():
 		Send_Status = 0x10
 
 		atmegaSPI.xfer([Send_Status])
-		#Atmega can return 3 possible values: 0 for no package, 1 for package delivered, 2 for package is outgoing
+		#Atmega can return 4 possible values: 0 for no package, 1 for package delivered, 2 for package is outgoing, 3 for something detected while door is unlocked
 		isPackage = atmegaSPI.readbytes(1)[0]
 
 		atmegaSPI.close()
