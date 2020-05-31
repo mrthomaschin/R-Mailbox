@@ -36,7 +36,12 @@ def requestButton():
 		time.sleep(1)
 
 def packageNotify():
-	mailNotification = 1
+	#FLAGS
+	#1 = Send message, 0 = We already sent
+	sendNotification = 1
+	#0 = Not outgoing, 1 = Package needs pickup
+	isOutgoing = 0
+
 	while (True):
 		atmegaSPI = createSPI(0, 0)
 
@@ -44,24 +49,41 @@ def packageNotify():
 		Send_Status = 0x10
 
 		atmegaSPI.xfer([Send_Status])
+		#Atmega can return 3 possible values: 0 for no package, 1 for package delivered, 2 for package is outgoing
 		isPackage = atmegaSPI.readbytes(1)[0]
-		print("Package Status", isPackage)
 
 		atmegaSPI.close()
 
-		if isPackage:
+		#Standard Delivery
+		if isPackage == 1:
 			print("Package detected")
-			if mailNotification == 1:
-				mailNotification = 0
+			if sendNotification == 1:
 				print("Sending package notification")
 				send_sms.sendSMS('+19098272197', '+12058329927', "You have received a new package! The RMailbox will keep it safe until you retrieve it.")
-				send_email.sendEmail()
-		elif not isPackage:
+				send_email.sendEmail('You have received a new package! The RMailbox will keep it safe until you retrieve it.')
+				sendNotification = 0
+
+		#Package is outgoing
+		elif isPackage == 2:
+			print("Package awaiting pickup")
+			if not isOutgoing:
+				isOutgoing = 1
+
+		#No package detected
+		elif isPackage == 0:
 			print("No package")
-			if mailNotification != 1:
-				mailNotification = 1
+			if isOutgoing:
+				print("Sending pickup notification")
+				isOutgoing = 0;
+				send_sms.sendSMS('+19098272197', '+12058329927', "Your package has been picked up! Thank you for using Rmailbox.")
+				send_email.sendEmail('Your package has been picked up! Thank you for using Rmailbox.')
+				sendNotifications = 0
+			else:
+				#If there's no package, we reset and send notifications the next time something happens
+				if not sendNotification:
+					sendNotification == 1
 		else:
-			print("Unknown signal")
+			print("Door unlocked, package inside")
 
 		time.sleep(3)
 
@@ -99,7 +121,7 @@ def sms_reply():
 
 	return str(resp)
 
-@ask.intent('IRIntent')
+@ask.intent('deliveryIntent')
 def isMail():
 	atmegaSPI = createSPI(0, 0)
 
@@ -113,32 +135,47 @@ def isMail():
 
 	atmegaSPI.close()
 
-	if isPackage:
-    		return statement('You have mail')
+	if isPackage == 1:
+		return statement('You have mail')
 
 	return statement('There is currently no mail')
 
+@ask.intent('pickupIntent')
+def pickupStatus():
+	atmegaSPI = createSPI(0, 0)
+
+	#SPI Command to Atmega
+	Send_Status = 0x10
+
+	atmegaSPI.xfer([Send_Status])
+	pickupStatus = atmegaSPI.readbytes(1)[0]
+
+	print("Current Pickup Status: ", pickupStatus)
+
+	atmegaSPI.close()
+
+	if pickupStatus == 2:
+		return statement('Your package has not been picked up yet')
+
+	return statement('Your package has been picked up')
 
 if __name__ == '__main__':
 	try:
 
-		flaskServer = Process(target=app.run, kwargs=dict(debug=True))
 		requestOpen = Process(target=requestButton)
-		#notifications = Process(target=packageNotify)
+		notifications = Process(target=packageNotify)
 
 		#http://jhshi.me/2015/12/27/handle-keyboardinterrupt-in-python-multiprocessing/index.html#.XtBUiDpKj-g
 		#Fixes errors on keyboard interrupts
-		flaskServer.daemon = True
 		requestOpen.daemon = True
-		#notifications.daemon = True
+		notifications.daemon = True
 
-		flaskServer.start()
 		requestOpen.start()
-		#notifications.start()
-		notifications = packageNotify()
+		notifications.start()
+		app.run()
 
 	except KeyboardInterrupt:
-		flaskServer.terminate()
 		requestOpen.terminate()
-		#notifications.terminate()
+		notifications.terminate()
+		GPIO.cleanup()
 		exit()
