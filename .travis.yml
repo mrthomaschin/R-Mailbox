@@ -25,9 +25,13 @@ matrix:
       install:
         - sudo apt-get install -qq gcc-avr binutils-avr avr-libc
 
+      # script:
+      #   - gcc -o testprogram test_main.o ../atmega_src/travis_ci_test_example.o
+      #   - ./testprogram
       script:
-        - gcc -o testprogram test_main.o ../atmega_src/travis_ci_test_example.o
-        - ./testprogram
+        - make
+    #        - chmod ugo+x run.sh
+    #       - ./run.sh
 
     - language: python
       #dependencies
