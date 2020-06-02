@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <avr/io.h>
 
-#include "main.h"
+#include "test_atmega.h"
 
 #define E_FAIL (-1)
 #define S_OK (0)
