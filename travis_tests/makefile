@@ -7,7 +7,8 @@
 
 MCU = atmega1284p
 FORMAT = ihex
-TARGET = main
+# TARGET = main
+TARGET = ../atmega_src/main
 SRC = $(TARGET).c
 ASRC = 
 OPT = s
