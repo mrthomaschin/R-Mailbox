@@ -9,6 +9,7 @@ MCU = atmega1284p
 FORMAT = ihex
 TARGET = main
 SRC = $(TARGET).c
+SRC = $test_atmega.c
 ASRC = 
 OPT = s
 
