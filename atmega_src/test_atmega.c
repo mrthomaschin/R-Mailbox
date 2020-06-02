@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <avr/io.h>
 
+#include "main.h"
+
 #define E_FAIL (-1)
 #define S_OK (0)
 
@@ -211,7 +213,7 @@ int testNoDoorNotLock()
     return S_OK;
 }
 
-void run_tests()
+void run_test()
 {
 
     //PA0 - "Authorize" Mock button, PA1-3 Package IR sensors, PA4 Door IR Sensor

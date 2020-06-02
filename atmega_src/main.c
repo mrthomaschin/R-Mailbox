@@ -324,7 +324,7 @@ int main(void)
 
 	PINA = 0x01;
 
-	run_tests();
+	run_test();
 
 	SPI_SlaveInit();
 	TimerSet(1);
