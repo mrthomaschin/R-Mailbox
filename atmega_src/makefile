@@ -220,7 +220,7 @@ depend:
 		>> $(MAKEFILE); \
 	$(CC) -M -mmcu=$(MCU) $(CDEFS) $(CINCS) $(SRC) $(ASRC) >> $(MAKEFILE)
 
-main.o : main.c
+main.o : main.c run_tests.h
 
 #.PHONY:	all build elf hex eep lss sym program coff extcoff clean depend
 .PHONY: run-test

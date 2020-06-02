@@ -213,7 +213,7 @@ int testNoDoorNotLock()
     return S_OK;
 }
 
-void run_test()
+void run_tests()
 {
 
     //PA0 - "Authorize" Mock button, PA1-3 Package IR sensors, PA4 Door IR Sensor

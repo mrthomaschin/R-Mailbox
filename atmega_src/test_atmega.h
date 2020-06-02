@@ -1,6 +1,6 @@
 #ifndef ATMEGA_SRC_H_
 #define ATMEGA_SRC_H_
 
-void run_test();
+void run_tests();
 
 #endif
