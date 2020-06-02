@@ -7,12 +7,7 @@
 #include "ir.h"
 #include "servo.h"
 #include "main.h"
-<<<<<<< HEAD
 #include "spi.h"
-=======
-#define E_FAIL (-1)
-#define S_OK (0)
->>>>>>> be88ea2e0ea829746b625f8692fee61789d3d91a
 
 #include "../travis_tests/test_atmega.h"
 
@@ -199,11 +194,7 @@ int lock_Tick(int lock_state)
 
 	case Unlock:
 		unlockDoor();
-<<<<<<< HEAD
 		_delay_ms(1000);
-=======
-		//PORTD = lock_state;
->>>>>>> be88ea2e0ea829746b625f8692fee61789d3d91a
 		break;
 
 	default:
@@ -213,7 +204,6 @@ int lock_Tick(int lock_state)
 	return lock_state;
 }
 
-<<<<<<< HEAD
 enum outgoingButton_states
 {
 	outgoingButton_Idle,
@@ -319,9 +309,6 @@ int flag_Tick(int flag_state)
 
 	return flag_state;
 }
-=======
-
->>>>>>> be88ea2e0ea829746b625f8692fee61789d3d91a
 
 int main(void)
 {
@@ -341,12 +328,9 @@ int main(void)
 
 	PINA = 0x01;
 
-<<<<<<< HEAD
 	run_tests();
 
 	SPI_SlaveInit();
-=======
->>>>>>> be88ea2e0ea829746b625f8692fee61789d3d91a
 	TimerSet(1);
 	TimerOn();
 	lock_PWM_on();
