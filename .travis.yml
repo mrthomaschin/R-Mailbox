@@ -13,11 +13,7 @@ matrix:
         - mdeso001_jhalvorson6687/notifications
 
       before_script:
-        - cd atmega_src/
-        - gcc -c travis_ci_test_example.c
-        - cd ..
-        - cd travis_tests/
-        - gcc -c test_main.c
+        - cd atmega_src
 
       before_install:
         - sudo apt-get update -qq
