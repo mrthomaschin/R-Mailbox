@@ -13,7 +13,8 @@ matrix:
         - mdeso001_jhalvorson6687/notifications
 
       before_script:
-        - cd atmega_src
+        # - cd atmega_src
+        - cd travis_tests
 
       before_install:
         - sudo apt-get update -qq

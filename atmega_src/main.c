@@ -1,7 +1,6 @@
 #define F_CPU 8000000UL
 
 #include <avr/io.h>
-#include "test_atmega.h"
 #include "timer.h"
 #include "scheduler.h"
 #include "servo.h"
@@ -9,6 +8,8 @@
 #include "servo.h"
 #include "main.h"
 #include "spi.h"
+
+#include "test_atmega.h"
 
 //PC1 is authorization signal from security Pi, Debug Button on PA0 mocks authorization signal to unlock
 #define AUTHORIZED (~PINC & 0x02) | (~PINA & 0x01)
