@@ -324,11 +324,9 @@ int main(void)
 	//Debug light on PC0
 	DDRC = 0xFF;
 	PORTC = 0x00;
-
+	//PD6 - Debug LED, PD7 - Servo Wire
 	DDRD = 0xFF;
 	PORTD = 0x00;
-
-	PINA = 0x01;
 
 	SPI_SlaveInit();
 	TimerSet(1);
