@@ -313,6 +313,8 @@ int flag_Tick(int flag_state)
 int main(void)
 {
 
+	run_tests();
+
 	//PA0 - "Authorize" Mock button, PA1-3 Package IR sensors, PA4 Door IR Sensor
 	DDRA = 0x00;
 	PORTA = 0xFF;
@@ -327,8 +329,6 @@ int main(void)
 	PORTD = 0x00;
 
 	PINA = 0x01;
-
-	run_tests();
 
 	SPI_SlaveInit();
 	TimerSet(1);
