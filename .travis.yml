@@ -13,11 +13,8 @@ matrix:
         - mdeso001_jhalvorson6687/notifications
 
       before_script:
-        - cd atmega_src/
-        - gcc -c travis_ci_test_example.c
-        - cd ..
-        - cd travis_tests/
-        - gcc -c test_main.c
+        # - cd atmega_src
+        - cd travis_tests #inside travis_tests folder
 
       before_install:
         - sudo apt-get update -qq
@@ -25,9 +22,13 @@ matrix:
       install:
         - sudo apt-get install -qq gcc-avr binutils-avr avr-libc
 
+      # script:
+      #   - gcc -o testprogram test_main.o ../atmega_src/travis_ci_test_example.o
+      #   - ./testprogram
       script:
-        - gcc -o testprogram test_main.o ../atmega_src/travis_ci_test_example.o
-        - ./testprogram
+        - make
+    #        - chmod ugo+x run.sh
+    #       - ./run.sh
 
     - language: python
       #dependencies
