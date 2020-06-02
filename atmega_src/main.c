@@ -7,7 +7,12 @@
 #include "ir.h"
 #include "servo.h"
 #include "main.h"
+<<<<<<< HEAD
 #include "spi.h"
+=======
+#define E_FAIL (-1)
+#define S_OK (0)
+>>>>>>> be88ea2e0ea829746b625f8692fee61789d3d91a
 
 #include "../travis_tests/test_atmega.h"
 
@@ -143,6 +148,7 @@ enum lock_States
 };
 int lock_Tick(int lock_state)
 {
+
 	//State Transitions
 	switch (lock_state)
 	{
@@ -185,6 +191,7 @@ int lock_Tick(int lock_state)
 
 	case Lock:
 		lockDoor();
+		//PORTD = lock_state;
 		break;
 
 	case Locked:
@@ -192,7 +199,11 @@ int lock_Tick(int lock_state)
 
 	case Unlock:
 		unlockDoor();
+<<<<<<< HEAD
 		_delay_ms(1000);
+=======
+		//PORTD = lock_state;
+>>>>>>> be88ea2e0ea829746b625f8692fee61789d3d91a
 		break;
 
 	default:
@@ -202,6 +213,7 @@ int lock_Tick(int lock_state)
 	return lock_state;
 }
 
+<<<<<<< HEAD
 enum outgoingButton_states
 {
 	outgoingButton_Idle,
@@ -307,9 +319,13 @@ int flag_Tick(int flag_state)
 
 	return flag_state;
 }
+=======
+
+>>>>>>> be88ea2e0ea829746b625f8692fee61789d3d91a
 
 int main(void)
 {
+
 	//PA0 - "Authorize" Mock button, PA1-3 Package IR sensors, PA4 Door IR Sensor
 	DDRA = 0x00;
 	PORTA = 0xFF;
@@ -325,9 +341,12 @@ int main(void)
 
 	PINA = 0x01;
 
+<<<<<<< HEAD
 	run_tests();
 
 	SPI_SlaveInit();
+=======
+>>>>>>> be88ea2e0ea829746b625f8692fee61789d3d91a
 	TimerSet(1);
 	TimerOn();
 	lock_PWM_on();
@@ -379,6 +398,7 @@ int main(void)
 	unsigned short i; // Scheduler for-loop iterator
 	while (1)
 	{
+
 		// Scheduler code
 		for (i = 0; i < numTasks; i++)
 		{
