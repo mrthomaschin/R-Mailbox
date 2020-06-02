@@ -8,7 +8,7 @@
 MCU = atmega1284p
 FORMAT = ihex
 # TARGET = main
-TARGET = ../atmega_src/main
+TARGET = ../atmega_src/main #inside travis_tests folder
 SRC = $(TARGET).c
 ASRC = 
 OPT = s

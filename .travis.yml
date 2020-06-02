@@ -14,7 +14,7 @@ matrix:
 
       before_script:
         # - cd atmega_src
-        - cd travis_tests
+        - cd travis_tests #inside travis_tests folder
 
       before_install:
         - sudo apt-get update -qq
