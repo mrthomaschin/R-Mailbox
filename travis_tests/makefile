@@ -229,4 +229,3 @@ run-test: test
 	./test
 test: main.o
 	$(CC) $^ $(LDFLAGS) -o $@
-© 2020 GitHub, 
