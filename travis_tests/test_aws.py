@@ -27,23 +27,21 @@ class atmegaSPIMock:
         return
 
     def readbytes(self, y):
-        return 1
+        return 0
 
 
 # Raspberry Pi does not detect package, sends a statement to Alexa
-@patch('spidev.atmegaSPI', atmegaSPIMock)
-def test_aws_command_no():
-    statement_mock = isMail()
-    phrase = statement_mock._response['outputSpeech']['text']
-    assert phrase == "There is currently no mail", "test failed"
-
-
-# # Raspberry Pi detects package, sends a statement to Alexa
-# def test_aws_command_yes():
-#     sys.modules['spidev'].SpiDev.readbytes.return_value = 1
-
+# @patch('spidev.atmegaSPI', atmegaSPIMock)
+# def test_aws_command_no():
 #     statement_mock = isMail()
 #     phrase = statement_mock._response['outputSpeech']['text']
-#     print("........")
-#     print(phrase)
+#     print(statement_mock._response)
 #     assert phrase == "There is currently no mail", "test failed"
+
+
+# Raspberry Pi detects package, sends a statement to Alexa
+def test_aws_command_yes():
+    statement_mock = isMail()
+    phrase = statement_mock._response['outputSpeech']['text']
+    print(statement_mock._response)
+    assert phrase == "You have mail", "test failed"
