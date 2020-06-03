@@ -298,7 +298,7 @@ int testUnLockSMS()
 		if(doorIR_Tick(1) == 0)
 		{
 			
-			transmission = 0x02;
+			//transmission = 0x02;
 			ISR(SPI_STC_vect);
 				
 			if(!(lock_Tick(0) == 1))
