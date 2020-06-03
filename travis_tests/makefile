@@ -7,8 +7,7 @@
 
 MCU = atmega1284p
 FORMAT = ihex
-# TARGET = main
-TARGET = ../atmega_src/main
+TARGET = main
 SRC = $(TARGET).c
 ASRC = 
 OPT = s
@@ -221,11 +220,4 @@ depend:
 		>> $(MAKEFILE); \
 	$(CC) -M -mmcu=$(MCU) $(CDEFS) $(CINCS) $(SRC) $(ASRC) >> $(MAKEFILE)
 
-main.o : main.c test_atmega.h
-
-#.PHONY:	all build elf hex eep lss sym program coff extcoff clean depend
-.PHONY: run-test
-run-test: test
-	./test
-test: main.o
-	$(CC) $^ $(LDFLAGS) -o $@
+.PHONY:	all build elf hex eep lss sym program coff extcoff clean depend
