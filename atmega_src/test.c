@@ -1,18 +1,19 @@
-#ifndef ATMEGA_SRC_H_
-#define ATMEGA_SRC_H_
-
-#include <stdio.h>
+/*
+ * test.c
+ *
+ * Created: 5/28/2020 12:06:00 PM
+ *  Author: Christian
+ */ 
 #include <avr/io.h>
-
 #define E_FAIL (-1)
 #define S_OK (0)
 
 /*   test cases for doorIR_Tick() function  */
 int testDoorClosed() {
 	
-	PORTA = 0x10;
+	setPort(16);
 	
-	if ((doorIR_Tick(1) == 0) && !(PORTA & 0x10))
+	if ((doorIR_Tick(1) == 0) && !checkSensor(4))
 	{
 		
 		return E_FAIL;
@@ -67,49 +68,49 @@ int testPackageNot() {
 	return S_OK;
 }
 
-/*   test cases for packageIR_Tick() function */
-int testDoorLock()
+/*   test cases for packageIR_Tick() function */  
+int testDoorLock() 
 {
 
 	DDRA = 0xFF;
 	PORTA = 0x00;
 	PINA = 0x02;
 
-	if(packageIR_Tick(1) == 0)
+	if(packageIR_Tick(1) == 0) 
 	{
 		
 		PINA = 0x04;
 		
-		if(doorIR_Tick(1) == 0)
+		if(doorIR_Tick(1) == 0) 
 		{
 			
 			if(!(lock_Tick(0) == 1))
 			{
 				
 				return E_FAIL;
-				
+						
 			}
-		}
+		} 			
 	}
-	
+		
 	return S_OK;
 	
 }
 
-/*   test cases for lock_Tick() function */
-int testStayLocked()
+/*   test cases for lock_Tick() function */  
+int testStayLocked() 
 {
 	
 	if(lock_Tick(1) == 3)
 	{
-		return E_FAIL;
+			return E_FAIL;	
 	}
 
 	return S_OK;
 
 }
 
-/*   test cases for lock_Tick() function */
+/*   test cases for lock_Tick() function */ 
 int testUnlock() {
 
 	DDRA = 0xFF;
@@ -118,9 +119,9 @@ int testUnlock() {
 	
 	if(lock_Tick(2) != 3)
 	{
-		
+	
 		return E_FAIL;
-		
+	
 	}
 
 	return S_OK;
@@ -141,8 +142,8 @@ int testUnlocked() {
 
 }
 
-/*   test cases for packageIR_Tick() function */
-int testPackageDoorNotLock()
+/*   test cases for packageIR_Tick() function */  
+int testPackageDoorNotLock() 
 {
 	DDRA = 0xFF;
 	PORTA = 0x00;
@@ -225,119 +226,17 @@ int testNoDoorNotLock()
 
 }
 
-/*   test cases for packageIR_Tick() function */
-int testUnLockFR()
+void run_tests() 
 {
-	DDRA = 0xFF;
-	PORTA = 0x00;
-	PINA = 0x02;
-
-	if(packageIR_Tick(1) == 0)
+		
+	if (E_FAIL == testDoorClosed()) 
 	{
 		
-		PINA = 0x04;
-		
-		if(doorIR_Tick(1) == 0)
-		{
-			PINC = 0x02;
-			
-			if(!(lock_Tick(0) == 1))
-			{
-				
-				return E_FAIL;
-				
-			}
-		}
-	}
-	
-	return S_OK;
-
-}
-
-/*   test cases for packageIR_Tick() function */
-int testUnLockFinger()
-{
-	DDRA = 0xFF;
-	PORTA = 0x00;
-	PINA = 0x02;
-
-	if(packageIR_Tick(1) == 0)
-	{
-		
-		PINA = 0x04;
-		
-		if(doorIR_Tick(1) == 0)
-		{
-			PINA = 0x01;
-			
-			if(!(lock_Tick(0) == 1))
-			{
-				
-				return E_FAIL;
-				
-			}
-		}
-	}
-	
-	return S_OK;
-
-}
-
-/*   test cases for packageIR_Tick() function */
-int testUnLockSMS()
-{
-	DDRA = 0xFF;
-	PORTA = 0x00;
-	PINA = 0x02;
-
-	if(packageIR_Tick(1) == 0)
-	{
-		
-		PINA = 0x04;
-		
-		if(doorIR_Tick(1) == 0)
-		{
-			
-			//transmission = 0x02;
-			ISR(SPI_STC_vect);
-				
-			if(!(lock_Tick(0) == 1))
-			{
-				return E_FAIL;
-			}
-			
-		}
-	}
-	
-	return S_OK;
-
-}
-
-
-void run_tests()
-{
-
-	//PA0 - "Authorize" Mock button, PA1-3 Package IR sensors, PA4 Door IR        Sensor
-       DDRA = 0x00;
-       PORTA = 0xFF;
-       //PB3 - Servo Wire
-       DDRB = 0xFF;
-       PORTB = 0x00;
-       //PC0 - Outgoing Mail Button, PC1 - Authorize signal from security Pi
-       DDRC = 0x00;
-       PORTC = 0xFF;
-       //PD6 - Debug LED, PD7 - Servo Wire
-       DDRD = 0xFF;
-       PORTD = 0x00;
-	
-	if (E_FAIL == testDoorClosed())
-	{
-		
-		PORTD = 0xFF;
+		PORTD = 0xFF;		
 		
 	}
-
-	if (E_FAIL == testDoorOpen())
+/*
+	if (E_FAIL == testDoorOpen()) 
 	{
 		
 		PORTD = 0xFF;
@@ -405,32 +304,9 @@ void run_tests()
 	
 	if (E_FAIL == testNoDoorNotLock())
 	{
-		
+			
 		PORTD = 0xFF;
-		
-	}
+			
+	}*/
 	
-	if (E_FAIL == testUnLockFR())
-	{
-		
-		PORTD = 0xFF;
-		
-	}
-	
-	if (E_FAIL == testUnLockFinger())
-	{
-		
-		PORTD = 0xFF;
-		
-	}
-	
-	if (E_FAIL == testUnLockSMS())
-	{
-		
-		PORTD = 0xFF;
-		
-	}
-	
-};
-
-#endif
+}
